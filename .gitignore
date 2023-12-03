@@ -1,3 +1,4 @@
 node_modules/
 *.zip
 .DStore
+.DS_Store
