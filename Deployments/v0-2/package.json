@@ -1,0 +1,26 @@
+{
+  "name": "intex",
+  "version": "1.0.0",
+  "description": "Node Application for INTEX",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ISINTEX42/INTEX.git"
+  },
+  "author": "Kimberly Hunter, Nari Kang, Cameron Klepacz, Braden Toone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ISINTEX42/INTEX/issues"
+  },
+  "homepage": "https://github.com/ISINTEX42/INTEX#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "knex": "^3.0.1",
+    "pg": "^8.11.3"
+  }
+}
