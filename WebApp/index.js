@@ -17,5 +17,5 @@ const knex = require("knex")({
 require("./routes/routes")(app);
 require("./routes/db_routes")(app, knex);
 const PORT = process.env.PORT || 3000;
-
+// My comments
 app.listen(PORT, () => {console.log("Server Started Listening on Port: " + PORT);});
