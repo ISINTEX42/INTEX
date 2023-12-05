@@ -5,3 +5,5 @@ Kimberly Notes:
             footer
 
         signUp page needs id verification in ID input section
+
+        Login method: method="<%= params.method %>"
