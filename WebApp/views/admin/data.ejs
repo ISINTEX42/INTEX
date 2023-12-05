@@ -52,37 +52,30 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Data Tables</h2>
-                    <% if (countries.length > 0) { %>
                         <table style="width: 100%; background-color: antiquewhite; border: 1px solid black; border: 1px solid black;" <%= countries.length == 0 ? "hidden" : "" %>>
                             <thead style="background-color: cornflowerblue; color: white; border: 1px solid black;">
                                 <tr>
-                                    <th style="text-align: left; border: 1px solid black;">Name</th>
-                                    <th style="text-align: left; border: 1px solid black;">Popular Site</th>
-                                    <th style="text-align: left; border: 1px solid black;">Capital</th>
-                                    <th style="text-align: left; border: 1px solid black;">Population</th>
-                                    <th style="text-align: left; border: 1px solid black;">Visited</th>
-                                    <th style="text-align: left; border: 1px solid black;">Covid Level</th>
-                                    <th style="border: 1px solid black;"></th>
-                                    <th style="border: 1px solid black;"></th>
+                                    <% for (let i=0; i < data.columns.length; i++) { %>
+                                        <th style="text-align: left; border: 1px solid black;"><%= data.columns[i] %></th>
+                                     <% }; %>
+                                    <th style="border: 1px solid black;">Edit</th>
+                                    <th style="border: 1px solid black;">Delete</th>
                                 </tr>
                             </thead>
                             <tbody style="font-family: Arial; font-size: 9pt;">
-                                <% for (let iCount = 0; iCount < countries.length; iCount++) { %>
+                                <% for (let i = 0; i < data.rows.length; i++) { %>
                                     <tr>
-                                        <th style="text-align: left; border: 1px solid black;"><%= countries[iCount].country_name %></th>
-                                        <th style="text-align: left; border: 1px solid black;"><%= countries[iCount].popular_site %></th>
-                                        <th style="text-align: left; border: 1px solid black;"><%= countries[iCount].capital %></th>
-                                        <th style="text-align: left; border: 1px solid black;"><%= countries[iCount].population %></th>
-                                        <th style="text-align: left; border: 1px solid black;"><%= countries[iCount].visited %></th>
-                                        <th style="text-align: left; border: 1px solid black;"><%= countries[iCount].covid_level %></th>
-                                        <th style="border: 1px solid black;">
-                                            <form action="/editCountry/<%= countries[iCount].country_id %>" method="GET">
-                                                <input type="submit" value="Edit" id="editCountry<%= countries[iCount].country_id %>" name="editCountry<%= countries[iCount].country_id %>">
+                                        <% for (let j = 0; j < data.columns.length; j++) { %>
+                                            <th style="text-align: left; border: 1px solid black;"><%= data.rows[i][j] %></th>
+                                        <% }; %>
+                                        <th style="text-align: left; border: 1px solid black;">
+                                            <form action="/editSurvey/<%= data.rows[i][0] %>" method="GET">
+                                                <input type="submit" value="Edit" id="editSurvey<%= data.rows[i][0] %>" name="editSurvey<%= data.rows[i][0] %>">
                                             </form>
                                         </th>
-                                        <th style="border: 1px solid black;">
-                                            <form action="/deleteCountry/<%= countries[iCount].country_id %>" method="POST">
-                                                <input type="submit" value="Delete" id="deleteCountry<%= countries[iCount].country_id %>" name="deleteCountry<%= countries[iCount].country_id %>">
+                                        <th style="text-align: left; border: 1px solid black;">
+                                            <form action="/deleteSurvey/<%= data.rows[i][0] %>" method="POST">
+                                                <input type="submit" value="Delete" id="deleteSurvey<%= data.rows[i][0] %>" name="deleteSurvey<%= data.rows[i][0] %>">
                                             </form>
                                         </th>
                                     </tr>
