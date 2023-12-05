@@ -18,3 +18,4 @@ Kimberly Notes:
         fake button:
 
         <a onclick="document.getElementById('THISID').click();" cursor="pointer" />
+        Login method: method="<%= params.method %>"
