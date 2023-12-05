@@ -1,11 +1,27 @@
 module.exports = (app) => {
+    // Index Routes
+    // Get request ONLY used when entering from outside website
     app.get("/", (req, res) => {
-        res.render("index");
+        res.render("index", {"params": {"isAuthenticated": false}});
+    });
+    // Post request checks if isAuthenticated exists returning false if not
+    app.post("/", (req, res) => {
+        res.render("index", {"params": {
+            "isAuthenticated": req.body.hasAttribute("isAuthenticated") ? req.body.isAuthenticated : false}
+        });
     });
 
-// link to our tableau page
+
+    // Tableau Routes
+    // Get request ONLY used when entering from outside website
     app.get("/tableau", (req, res) => {
-        res.render("tableau");
+        res.render("tableau", {"params": {"isAuthenticated": false}});
+    });
+    // Post request checks if isAuthenticated exists returning false if not
+    app.post("/tableau", (req, res) => {
+        res.render("tableau", {"params": {
+            "isAuthenticated": req.body.hasAttribute("isAuthenticated") ? req.body.isAuthenticated : false}
+        });
     });
 
 // link to survey page

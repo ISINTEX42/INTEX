@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <% if (true===true) { 
+                var params.isAuthenticated = "Hi"
+            } else {
+                var message = "Bye";
+            };
+        %>
+            <h1><%= message %></h1>
+            <%= "<h1>Hi</h1>"; %>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -57,7 +65,7 @@
                 <!-- To make this form functional, sign up at-->
                 <!-- https://startbootstrap.com/solution/contact-forms-->
                 <!-- to get an API token!-->
-                <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN" action="/createAcct" method="post">
+                <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN" action="/signUp" method="post">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
                             <div class="form-group">
