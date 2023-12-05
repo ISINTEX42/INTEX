@@ -15,8 +15,7 @@ const knex = require("knex")({
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
     }
 });
-require("./routes/routes")(app);
-require("./routes/db_routes")(app, knex);
+require("./routes/routes")(app, knex);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {console.log("Server Started Listening on Port: " + PORT);});
