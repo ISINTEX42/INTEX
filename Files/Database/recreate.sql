@@ -140,7 +140,7 @@ Cleanup and rename schemas
 */
 DROP SCHEMA IF EXISTS data_backup CASCADE;
 ALTER SCHEMA normalization RENAME TO data_backup;
-ALTER TABLE data_backup.first_normal RENAME TO plainsville_raw;
+ALTER TABLE data_backup.first_normal RENAME TO plainsville_clean;
 /*
 Creating and inserting into prod
 */
