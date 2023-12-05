@@ -1,6 +1,11 @@
+CREATE OR REPLACE PROCEDURE import_raw()
+LANGUAGE plpgsql
+AS $$
+BEGIN
 /*
-    Run this to recreate the raw plainsville table
+Recreate raw schema and table as necessary
 */
+CREATE SCHEMA IF NOT EXISTS raw;
 DROP TABLE IF EXISTS raw.plainsville;
 CREATE TABLE raw.plainsville(
 	survey_timestamp TIMESTAMP,
@@ -25,3 +30,4 @@ CREATE TABLE raw.plainsville(
 	fluctuation_frequency INTEGER,
 	sleep_frequency INTEGER
 );
+END; $$
