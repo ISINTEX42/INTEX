@@ -3,7 +3,6 @@
 */
 DROP TABLE IF EXISTS raw.plainsville;
 CREATE TABLE raw.plainsville(
-	raw_id SERIAL,
 	survey_timestamp TIMESTAMP,
 	age NUMERIC,
 	gender TEXT,
@@ -24,6 +23,5 @@ CREATE TABLE raw.plainsville(
 	validation_frequency INTEGER,
 	depression_frequency INTEGER,
 	fluctuation_frequency INTEGER,
-	sleep_frequency INTEGER,
-	PRIMARY KEY (raw_id)
+	sleep_frequency INTEGER
 );
