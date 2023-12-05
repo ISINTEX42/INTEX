@@ -6,8 +6,7 @@ Kimberly Notes:
 
         signUp page needs id verification in ID input section
 
-
-    Imitation hrefs:
+        Imitation hrefs:
         hidden form:
 
         <form action="anything" method="get/post">
