@@ -9,7 +9,6 @@
         gtag('js', new Date());
         gtag('config', 'G-45G6K3DR9B');
         </script>
-        <meta id="EJSParams" data-params="<%= params %>"/>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -24,7 +23,6 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <meta id="params" data="<%= params %>" />
         <script>
             function verifyEmail() {
                 let submitButton = document.getElementById("submitButton");
@@ -84,11 +82,9 @@
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Login</h2>
                 </div>
-                    <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN" action="/submitSignUp" method="post">
+                    <form class="form-subscribe" id="contactForm"  action="/submitSignUp" method="post">
                     <div class="row align-items-stretch mb-5">
-                        <div class="col-md-6">
-                        </div>
-                            <!-- change column-->
+
                         <div class="col-md-6">
                             <div class="form-group mb-md-0">
                                 <!-- Work Email address input-->
