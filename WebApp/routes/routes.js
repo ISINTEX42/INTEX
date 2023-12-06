@@ -116,4 +116,7 @@ module.exports = (app, knex) => {
     };
     {//API Actions
     };
+    app.get("/Landing", (req, res) => {
+        res.render("Landing");
+    });
 };
