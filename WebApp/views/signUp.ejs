@@ -60,47 +60,37 @@
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Sign Up</h2>
                 </div>
-    
-                <!-- * * * * * * * * * * * * * * *-->
-                <!-- * * SB Forms Contact Form * *-->
-                <!-- * * * * * * * * * * * * * * *-->
-                <!-- This form is pre-integrated with SB Forms.-->
-                <!-- To make this form functional, sign up at-->
-                <!-- https://startbootstrap.com/solution/contact-forms-->
-                <!-- to get an API token!-->
-                <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN" action="/submitSignUp" method="post">
+                    <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN" action="/submitSignUp" method="post">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <!-- firstName input-->
-                                <input class="form-control" id="employeeFirstName" name="employeeFirstName" type="text" placeholder="Employee First Name *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                <input class="form-control" id="employeeFirstName" name="employeeFirstName" type="text" placeholder="Employee First Name *"  required/>
                             </div>
                             <div class="form-group">
                                 <!-- lastName input-->
-                                <input class="form-control" id="employeelastName" name="employeelastName"  type="text" placeholder="Employee Last Name *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                <input class="form-control" id="employeeLastName" name="employeeLastName"  type="text" placeholder="Employee Last Name *" required/>
                             </div>
                             <div class="form-group">
                                 <!-- ID input-->
-                                <input class="form-control" id="employeeId" name="employeeId" type="text" placeholder="Provo City Employee ID *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="id:required">A valid ID is required.</div>
-                                <div class="invalid-feedback" data-sb-feedback="id:id">ID is not valid.</div>
+                                <input class="form-control" id="employeeId" name="employeeId" type="text" placeholder="Provo City Employee ID *" required />
                             </div>
                         </div>
                             <!-- change column-->
                         <div class="col-md-6">
                             <div class="form-group" mb-md-0>
                                 <!-- Work Email address input-->
-                                <input class="form-control" id="workEmail" name="workEmail" type="email" placeholder="Work Email *" data-sb-validations="required,email" />
-                                <div class="invalid-feedback" data-sb-feedback="email:required">A work email is required.</div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                <input class="form-control" id="workEmail" name="workEmail" type="email" placeholder="Work Email *" required />
+                                <!-- make sure new user can't have admin login or another username that already exists--> 
+                                
+                                
+                                 
+                                <div class="invalid-feedback" name="emailError" id="emailError">Email is not valid.</div>
                             </div>
 
                             <div class="form-group mb-md-0">
                                 <!-- Password input-->
-                                <input class="form-control" id="password" name="password" type="password" placeholder="Create Password *" data-sb-validations="required" oninput="check();"/>
-                                <div class="invalid-feedback" data-sb-feedback="password:required">Password Required.</div>
+                                <input class="form-control" id="password" name="password" type="password" placeholder="Create Password *" required />
                                 <small id="passwordHelpInline" class="text-secondary"> <!-- Password body is darker option-->
                                     Must be 8-20 characters long.
                                 </small>
@@ -108,30 +98,14 @@
                             </div>
                             <div class="form-group mb-md-0">
                                 <!-- Confrim Password input-->
-                                <input class="form-control" id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Confirm Password *" data-sb-validations="required" oninput="check()";/>
-                                <div class="invalid-feedback" data-sb-feedback="password:required">Password Confrimation Required.</div>
+                                <input class="form-control" id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Confirm Password *" required 
+                                oninput="result.value=!!document.getElementById('passwordConfirm')&&(document.getElementById('password').value==document.getElementById('passwordConfirm').value)?'':'Passwords do not match'"/>
+                                    <output name="result"></output>
                             </div>
                         </div>                         
                     </div>
-                    <!-- Submit success message-->
-                    <!---->
-                    <!-- This is what your users will see when the form-->
-                    <!-- has successfully submitted-->
-                    <div class="d-none" id="submitSuccessMessage">
-                        <div class="text-center text-white mb-3">
-                            <div class="fw-bolder">Form submission successful!</div>
-                            To activate this form, sign up at
-                            <br />
-                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                        </div>
-                    </div>
-                    <!-- Submit error message-->
-                    <!---->
-                    <!-- This is what your users will see when there is-->
-                    <!-- an error submitting the form-->
-                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                     <!-- Submit Button-->
-                    <div class="text-center"><button class="btn btn-info btn-xl text-uppercase disabled" id="submitButton" type="submit">Sign Up</button></div>
+                    <div class="text-center"><button class="btn btn-info btn-xl text-uppercase " id="submitButton" name="submitButton" type="submit">Sign Up</button></div>
                 </form>
             </div>
         </section>
@@ -159,10 +133,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>
