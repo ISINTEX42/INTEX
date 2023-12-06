@@ -180,7 +180,11 @@ module.exports = (app, knex) => {
 
 
     // admin test routes
-    app.get("/test", (req, res) => {
+    app.get("/testemp", (req, res) => {
+        res.render("employee/empnavbarTest");
+    })
+    app.get("/testadmin", (req, res) => {
         res.render("admin/navbarTest");
     })
+
 };
