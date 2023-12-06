@@ -75,9 +75,9 @@ module.exports = (app, knex) => {
     });
     // Employee Signup
     app.get("/signUp", (req, res) => {
-        res.render("signUp", {"params": {"usernames": [usernames]}});
-    });
-};
+        let usernames = ['this', 'is', 'a', 'list', 'of', 'usernames', 'to', 'test']
+        res.render("signUp", {"params": {"usernames": usernames}});
+    });};
     {//Employee Views
     // Landing
     app.get("/employee/index", (req, res) => {
@@ -170,4 +170,7 @@ module.exports = (app, knex) => {
     };
     {//API Actions
     };
+    app.get("/Landing", (req, res) => {
+        res.render("Landing");
+    });
 };
