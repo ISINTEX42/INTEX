@@ -24,18 +24,19 @@
                 <form action="/" method="get">
                     <button type="submit" id="hiddenIndexLink" hidden></button>
                 </form>                     
-                <a href="" class="navbar-brand" onclick="document.getElementById('hiddenIndexLink').click();"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
+                <a class="navbar-brand" onclick="document.getElementById('hiddenIndexLink').click();" cursor="pointer"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+
                         <!-- Dashboard Link -->
                         <form action="/tableau" method="get">
                             <button type="submit" id="hiddenTableauLink" hidden></button>
                         </form>                     
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenTableauLink').click();" href="">Explore Survery Results</a></li>
+                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenTableauLink').click();" cursor="pointer">Explore Survery Results</a></li>
                         <!-- Take Survey Button -->
                         <form action="/survey" method="get">
                             <button id="takeSurvey" name="takeSurvey" class="btn btn-info rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#intex">
@@ -389,15 +390,13 @@
                 <div class="row align-items-center">
                     <div class="col-lg-4 text-lg-start">Copyright &copy; Mindful Media Survey 2023</div>
                     <div class="col-lg-4 my-3 my-lg-0">
-                        <!-- Employee Login Link-->
-                        <form action="/login" method="get">
-                            <button type="submit" id="hiddenLoginLink" hidden></button>
-                        </form>                     
-                        <a class="link-dark text-decoration-none" onclick="document.getElementById('hiddenLoginLink').click();" href="" >Employee Login</a>
+                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="">Terms of Use</a>
+                        <a class="link-dark text-decoration-none" href="#!">Sign Up</a>
+                        <a class="link-dark text-decoration-none" href="#!">Employee Login</a>
+
                     </div>
                 </div>
             </div>
