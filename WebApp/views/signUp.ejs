@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-45G6K3DR9B"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-45G6K3DR9B');
+        </script>
+        <meta id="EJSParams" data-params="<%= params %>"/>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -15,6 +24,94 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <meta id="params" data="<%= params %>" />
+        <script>
+            function verifyAll(ignore) {
+                var mail = true;
+                var password = true;
+                var match = true;
+                if (ignore !== 'email') {
+                    mail = verifyEmail('<%= params.usernames %>', true);
+                };
+                if (ignore !== 'password') {
+                    password = verifyPassword(true);
+                };
+                if (ignore !== 'match') {
+                    match = verifyPasswordMatch(true);
+                };
+                console.log("mail: " + mail + " password: " + password + " match: " + match);
+                if (mail && password && match) {
+                    document.getElementById("submitButton").disabled = false;
+                };
+            };
+            function verifyEmail(usernames, called) {
+                let submitButton = document.getElementById("submitButton");
+                let workEmail = document.getElementById("workEmail");
+                let emailHelpInline = document.getElementById("emailHelpInline");
+                usernames = usernames.split(',');
+                let checkUsername = workEmail.value;
+                let exit = false;
+                usernames.forEach((username) => {
+                    if (username == checkUsername) {
+                        emailHelpInline.innerHTML = "Email Already in use."
+                        submitButton.disabled = true;
+                        exit = true;
+                        return;
+                    };
+                });
+                if (exit == true) {
+                    return false;
+                } else {
+                    if (checkUsername.includes('@') && checkUsername.includes('.')) {
+                        emailHelpInline.innerHTML = "Email Valid";
+                        if (!called) {
+                            verifyAll('email');
+                        };
+                    } else {
+                        emailHelpInline.innerHTML = "Invalid Email Format";
+                        return false
+                    };
+                };
+                return true
+            };
+            function verifyPassword(called) {
+                let password = document.getElementById("password");
+                let passwordHelpInline = document.getElementById("passwordHelpInline");
+                let submitButton = document.getElementById("submitButton");
+                let passwordVal = password.value;
+                if (passwordVal.length < 8 || passwordVal.length > 20) {
+                    passwordHelpInline.innerHTML = "Must have 8-20 Characters."
+                    submitButton.disabled = true;
+                    return false;
+                } else {
+                    passwordHelpInline.innerHTML = "Password Valid";
+                    if (!called) {
+                        verifyAll('password');
+                    };
+                };
+                return true
+            };
+            function verifyPasswordMatch(called) {
+                let password = document.getElementById("password");
+                let passwordHelpInline = document.getElementById("passwordHelpInline");
+                let passwordConfirm = document.getElementById("passwordConfirm");
+                let passwordConfirmInline = document.getElementById("passwordConfirmInline");
+                let submitButton = document.getElementById("submitButton");
+                let passwordVal = password.value;
+                let passwordConfirmVal = passwordConfirm.value;
+                if (passwordConfirmVal !== passwordVal) {
+                    submitButton.disabled = true;
+                    passwordConfirmInline.innerHTML = "Passwords do not Match.";
+                    return false;
+                } else {
+                    passwordConfirmInline.innerHTML = "";
+                    if (!called) {
+                        verifyAll('match');
+                    };
+                };
+                return true
+            };
+        </script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -23,7 +120,7 @@
                 <!-- Logo Homepage Link -->
                 <form action="/" method="get">
                     <button type="submit" id="hiddenIndexLink" hidden></button>
-                </form>                     
+                </form>
                 <a href="" class="navbar-brand" onclick="document.getElementById('hiddenIndexLink').click();"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
@@ -41,10 +138,10 @@
                             <button id="takeSurvey" name="takeSurvey" class="btn btn-info rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#intex">
                                 <span class="d-flex align-items-center">
                                     <i class="bi-chat-text-fill me-2"></i>
-                                    <span class="small">Sign In</span>
+                                    <span class="small">Take Survey</span>
                                 </span>
                             </button>
-                        </form>    
+                        </form>
                         </li>
                     </ul>
                 </div>
@@ -77,27 +174,21 @@
                         </div>
                             <!-- change column-->
                         <div class="col-md-6">
-                            <div class="form-group" mb-md-0>
+                            <div class="form-group mb-md-0">
                                 <!-- Work Email address input-->
-                                <input class="form-control" id="workEmail" name="workEmail" type="email" placeholder="Work Email *" required />
-                                <!-- make sure new user can't have admin login or another username that already exists--> 
-                                 
-                                <div class="invalid-feedback" name="emailError" id="emailError">Email is not valid.</div>
+                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail('<%= params.usernames %>', false);" placeholder="Work Email *" required />
+                                <!-- <div class="invalid-feedback" name="emailError" id="emailError">Email is not valid.</div> -->
+                                <small id="emailHelpInline" class="text-secondary">Please Supply Your Email.</small>
                             </div>
-
                             <div class="form-group mb-md-0">
                                 <!-- Password input-->
-                                <input class="form-control" id="password" name="password" type="password" placeholder="Create Password *" required />
-                                <small id="passwordHelpInline" class="text-secondary"> <!-- Password body is darker option-->
-                                    Must be 8-20 characters long.
-                                </small>
-
+                                <input class="form-control" id="password" name="password" type="password" oninput="verifyPassword(false);" placeholder="Create Password *" required />
+                                <small id="passwordHelpInline" class="text-secondary">Must have 8-20 Characters.</small>
                             </div>
                             <div class="form-group mb-md-0">
                                 <!-- Confrim Password input-->
-                                <input class="form-control" id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Confirm Password *" required 
-                                oninput="result.value=!!document.getElementById('passwordConfirm')&&(document.getElementById('password').value==document.getElementById('passwordConfirm').value)?'':'Passwords do not match'"/>
-                                    <output name="result"></output>
+                                <input class="form-control" id="passwordConfirm" name="passwordConfirm" type="password" oninput="verifyPasswordMatch(false);" placeholder="Confirm Password *" required />
+                                <small id="passwordConfirmInline" class="text-secondary"></small>
                             </div>
                         </div>                         
                     </div>
@@ -106,7 +197,6 @@
                 </form>
             </div>
         </section>
-        
         <!-- Footer-->
         <footer class="footer py-4">
             <div class="container">
@@ -130,7 +220,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>
