@@ -9,7 +9,7 @@ const knex = require("knex")({
     connection: {
         host: process.env.RDS_HOSTNAME || "localhost",
         user: process.env.RDS_USERNAME || "postgres",
-        password: process.env.RDS_PASSWORD || "B15256452N",
+        password: process.env.RDS_PASSWORD || "",
         database: process.env.RDS_DB_NAME || "mindfulmediasurvey",
         port: process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
