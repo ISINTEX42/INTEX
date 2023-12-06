@@ -26,91 +26,18 @@
         <link href="css/styles.css" rel="stylesheet" />
         <meta id="params" data="<%= params %>" />
         <script>
-            function verifyAll(ignore) {
-                var mail = true;
-                var password = true;
-                var match = true;
-                if (ignore !== 'email') {
-                    mail = verifyEmail('<%= params.usernames %>', true);
-                };
-                if (ignore !== 'password') {
-                    password = verifyPassword(true);
-                };
-                if (ignore !== 'match') {
-                    match = verifyPasswordMatch(true);
-                };
-                console.log("mail: " + mail + " password: " + password + " match: " + match);
-                if (mail && password && match) {
-                    document.getElementById("submitButton").disabled = false;
-                };
-            };
-            function verifyEmail(usernames, called) {
+            function verifyEmail() {
                 let submitButton = document.getElementById("submitButton");
                 let workEmail = document.getElementById("workEmail");
                 let emailHelpInline = document.getElementById("emailHelpInline");
-                usernames = usernames.split(',');
                 let checkUsername = workEmail.value;
-                let exit = false;
-                usernames.forEach((username) => {
-                    if (username == checkUsername) {
-                        emailHelpInline.innerHTML = "Email Already in use."
-                        submitButton.disabled = true;
-                        exit = true;
-                        return;
-                    };
-                });
-                if (exit == true) {
-                    return false;
+                if (checkUsername.includes('@') && checkUsername.includes('.')) {
+                    emailHelpInline.innerHTML = "Email Valid";
+                    submitButton.disabled = false;
                 } else {
-                    if (checkUsername.includes('@') && checkUsername.includes('.')) {
-                        emailHelpInline.innerHTML = "Email Valid";
-                        if (!called) {
-                            verifyAll('email');
-                        };
-                    } else {
-                        emailHelpInline.innerHTML = "Invalid Email Format";
-                        return false
-                    };
-                };
-                return true
-            };
-            function verifyPassword(called) {
-                let password = document.getElementById("password");
-                let passwordHelpInline = document.getElementById("passwordHelpInline");
-                let submitButton = document.getElementById("submitButton");
-                let passwordVal = password.value;
-                if (passwordVal.length < 8 || passwordVal.length > 20) {
-                    passwordHelpInline.innerHTML = "Must have 8-20 Characters."
+                    emailHelpInline.innerHTML = "Invalid Email Format";
                     submitButton.disabled = true;
-                    return false;
-                } else {
-                    passwordHelpInline.innerHTML = "Password Valid";
-                    if (!called) {
-                        verifyAll('password');
-                    };
                 };
-                return true
-            };
-            function verifyPasswordMatch(called) {
-                let password = document.getElementById("password");
-                let passwordHelpInline = document.getElementById("passwordHelpInline");
-                let passwordConfirm = document.getElementById("passwordConfirm");
-                let passwordConfirmInline = document.getElementById("passwordConfirmInline");
-                let submitButton = document.getElementById("submitButton");
-                let passwordVal = password.value;
-                let passwordConfirmVal = passwordConfirm.value;
-                if (passwordConfirmVal !== passwordVal) {
-                    submitButton.disabled = true;
-                    passwordConfirmInline.innerHTML = "Passwords do not Match.";
-                    return false;
-                } else {
-                    passwordConfirmInline.innerHTML = "";
-                    if (!called) {
-                        verifyAll('match');
-                    };
-                };
-                return true
-            };
         </script>
     </head>
     <body id="page-top">
@@ -164,14 +91,13 @@
                         <div class="col-md-6">
                             <div class="form-group mb-md-0">
                                 <!-- Work Email address input-->
-                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail('<%= params.usernames %>', false);" placeholder="Work Email *" required />
-                                <!-- <div class="invalid-feedback" name="emailError" id="emailError">Email is not valid.</div> -->
+                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail();" placeholder="Work Email *" required />
+                                <!-- <div class="invalid-feedback" name="emailError" id="emailError">Invalid Email Format</div> -->
                                 <small id="emailHelpInline" class="text-secondary">Please Supply Your Email.</small>
                             </div>
                             <div class="form-group mb-md-0">
                                 <!-- Password input-->
-                                <input class="form-control" id="password" name="password" type="password" oninput="verifyPassword(false);" placeholder="Create Password *" required />
-                                <small id="passwordHelpInline" class="text-secondary">Must have 8-20 Characters.</small>
+                                <input class="form-control" id="password" name="password" type="password" placeholder="Create Password *" required />
                             </div>
                         </div>                         
                     </div>
