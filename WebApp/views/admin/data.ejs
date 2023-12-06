@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-45G6K3DR9B"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-45G6K3DR9B');
+        </script>        
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -32,20 +40,38 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <!-- Dashboard Link -->
-                        <form action="/tableau" method="get">
+                        <form action="/admin/tableau" method="get">
                             <button type="submit" id="hiddenTableauLink" hidden></button>
                         </form> 
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenTableauLink').click();" href="">Explore Survery Results</a></li>
-                        <!-- Take Survey Button -->
-                        <form action="/survey" method="get">
-                            <button id="takeSurvey" name="takeSurvey" class="btn btn-info rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#intex">
-                                <span class="d-flex align-items-center">
-                                    <i class="bi-chat-text-fill me-2"></i>
-                                    <span class="small">Take Survey</span>
-                                </span>
-                            </button>
-                        </form>    
-                        </li>
+                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenTableauLink').click();" href="">Public Dashboard</a></li>
+                        <!-- Survey Button -->
+                        <form action="/admin/survey" method="get">
+                            <button type="submit" id="hiddenSurveyLink" hidden></button>
+                        </form> 
+                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenSurveyLink').click();" href="">Survey</a></li>
+                        <!-- Site Analytics Link 
+                        <form action="/admin/analytics" method="get">
+                            <button type="submit" id="hiddenAnalyticsLink" hidden></button>
+                        </form> 
+                        onclick="document.getElementById('hiddenAnalyticsLink').click();"
+                        -->
+                        <li class="nav-item"><a class="nav-link"  href="http://www.google.com/analytics">Website Analytics</a></li>         
+                        <!-- Database-->
+                        <form action="/admin/data" method="get">
+                            <button type="submit" id="hiddenDataLink" hidden></button>
+                        </form> 
+                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenDataLink').click();" href="">Survey Data</a></li>                
+                               
+                        <!-- Create Admin - Elevate Employee Link -->
+                        <form action="/admin/elevate" method="get">
+                            <button type="submit" id="hiddenElevateLink" hidden></button>
+                        </form> 
+                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenElevateLink').click();" href="">Change Permissions</a></li>
+                        <!-- Account Link -->
+                        <form action="/admin/account" method="get">
+                            <button type="submit" id="hiddenAccountLink" hidden></button>
+                        </form> 
+                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenAccountLink').click();" href="">My Account</a></li>
                     </ul>
                 </div>
             </div>
@@ -93,7 +119,7 @@
                             </tbody>
                         </table>
                     <br>
-                    <% }; %>
+                
                     <form action="/addCountry">
                         <input type="submit" value="Add Country" id="addCountry" name="addCountry">
                     </form>

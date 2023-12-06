@@ -173,4 +173,14 @@ module.exports = (app, knex) => {
     app.get("/Landing", (req, res) => {
         res.render("Landing");
     });
+
+
+
+
+
+
+    // admin test routes
+    app.get("/test", (req, res) => {
+        res.render("admin/navbarTest");
+    })
 };
