@@ -572,6 +572,91 @@ progress {
     font-size: 2.5rem;
   }
 }
+.sleepTip {
+  font-weight: bold; /* Makes text bold */
+  color: rgb(200, 144, 14); /* Change the color as needed */
+  padding: 10px; /* Adds space around the text */
+  border-radius: 5px; /* Optional: rounds the corners */
+  margin-top: 10px;
+  font-size: 17px;
+}
+.survey-container {
+  background-color: white;
+
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 68%;
+  align-content: center;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+  place-items: center;
+  display:grid;
+}
+.notes {
+  font-size: 0.97rem;
+  color: #740c0c;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  font-family: 'Roboto Slab', serif;
+  width: 90%; /* Width is set to 90% of its parent element */
+  margin: 0; /* Centers the container horizontally */
+  max-width: 1000px;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+}
+.questions {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-family: 'Roboto Slab', serif;
+  width: 90%; /* Width is set to 90% of its parent element */
+  margin: 0; /* Centers the container horizontally */
+  max-width: 1000px;
+}
+
+.thankYou {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-family: 'Roboto Slab', serif;
+  width: 90%; /* Width is set to 90% of its parent element */
+  margin: 0; /* Centers the container horizontally */
+  max-width: 1000px;
+  text-align: center;
+}
+
+.checkbox-group {
+  margin-bottom: 20px;
+  margin-left: 28px;
+}
+
+.integerbox {
+  width: 100px;  /* Adjust the width as needed */
+  height: 10px;  /* Adjust the height as needed */
+  /* Add other styling properties if needed */
+}
+
+.checkbox-group label {
+  margin-left: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.checkbox-group input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .survey-container {
+      width: 90%;
+  }
+}
 
 .list-unstyled {
   padding-left: 0;
