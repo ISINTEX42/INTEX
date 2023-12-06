@@ -60,7 +60,8 @@ module.exports = (app, knex) => {
     });
     // Employee Signup
     app.get("/signUp", (req, res) => {
-        res.render("signUp");
+        let usernames = ['this', 'is', 'a', 'list', 'of', 'usernames', 'to', 'test']
+        res.render("signUp", {"params": {"usernames": usernames}});
     });};
     {//Employee Views
     // Landing
