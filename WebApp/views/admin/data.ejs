@@ -9,69 +9,46 @@
 
         gtag('config', 'G-45G6K3DR9B');
         </script>        
+        <% var data = {"columns": [], "rows": []} %>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Mindful Media Survey - Admin Data</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/img/favicon_io/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="../assets/img/favicon_io/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="../css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
-        <!-- Navigation-->
+        <!-- Admin Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
                 <!-- Logo Homepage Link -->
-                <form action="/" method="get">
-                    <button type="submit" id="hiddenIndexLink" hidden></button>
-                </form>    
-                <a href="" class="navbar-brand" onclick="document.getElementById('hiddenIndexLink').click();"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
+                <a href="/" class="navbar-brand" ><img src="../assets/img/logoAllWhite.png" alt="..." /><img src="../assets/img/MindfulMedia.png" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <!-- Dashboard Link -->
-                        <form action="/admin/tableau" method="get">
-                            <button type="submit" id="hiddenTableauLink" hidden></button>
-                        </form> 
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenTableauLink').click();" href="">Public Dashboard</a></li>
-                        <!-- Survey Button -->
-                        <form action="/admin/survey" method="get">
-                            <button type="submit" id="hiddenSurveyLink" hidden></button>
-                        </form> 
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenSurveyLink').click();" href="">Survey</a></li>
-                        <!-- Site Analytics Link 
-                        <form action="/admin/analytics" method="get">
-                            <button type="submit" id="hiddenAnalyticsLink" hidden></button>
-                        </form> 
-                        onclick="document.getElementById('hiddenAnalyticsLink').click();"
-                        -->
-                        <li class="nav-item"><a class="nav-link"  href="http://www.google.com/analytics">Website Analytics</a></li>         
-                        <!-- Database-->
-                        <form action="/admin/data" method="get">
-                            <button type="submit" id="hiddenDataLink" hidden></button>
-                        </form> 
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenDataLink').click();" href="">Survey Data</a></li>                
-                               
-                        <!-- Create Admin - Elevate Employee Link -->
-                        <form action="/admin/elevate" method="get">
-                            <button type="submit" id="hiddenElevateLink" hidden></button>
-                        </form> 
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenElevateLink').click();" href="">Change Permissions</a></li>
                         <!-- Account Link -->
-                        <form action="/admin/account" method="get">
-                            <button type="submit" id="hiddenAccountLink" hidden></button>
-                        </form> 
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenAccountLink').click();" href="">My Account</a></li>
+                        <li class="nav-item"><a class="nav-admin" href="/admin/account">My Account</a></li>
+                        <!-- Database-->
+                        <li class="nav-item"><a class="nav-admin" href="/admin/data">Survey Data</a></li>     
+                        <!-- Manage Employees - Create Admin - Elevate Employee Link -->
+                        <li class="nav-item"><a class="nav-admin" href="/admin/employees">Manage Employees</a></li>
+                        <!-- Google Website Analytics-->
+                        <li class="nav-item"><a class="nav-admin"  href="http://www.google.com/analytics" target="_blank">Website Analytics</a></li>         
+                        <!-- Dashboard Link -->
+                        <li class="nav-item"><a class="nav-admin" href="/admin/tableau">Interactive Dashboard</a></li>
+                        <!-- Survey Button -->
+                        <li class="nav-item"><a class="nav-admin" href="/admin/survey">Take Survey</a></li>
                     </ul>
                 </div>
             </div>
@@ -88,7 +65,7 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Data Tables</h2>
-                        <table style="width: 100%; background-color: antiquewhite; border: 1px solid black; border: 1px solid black;" <%= countries.length == 0 ? "hidden" : "" %>>
+                        <table style="width: 100%; background-color: antiquewhite; border: 1px solid black; border: 1px solid black;">
                             <thead style="background-color: cornflowerblue; color: white; border: 1px solid black;">
                                 <tr>
                                     <% for (let i=0; i < data.columns.length; i++) { %>
@@ -119,27 +96,16 @@
                             </tbody>
                         </table>
                     <br>
-                
-                    <form action="/addCountry">
-                        <input type="submit" value="Add Country" id="addCountry" name="addCountry">
-                    </form>
                 </div>
         </section>
-        <!-- Footer-->
+        <!-- Admin Footer-->
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-4 text-lg-start">Copyright &copy; Mindful Media Survey 2023</div>
-                    <div class="col-lg-4 my-3 my-lg-0">
-                        <!-- Employee Login Link-->
-                        <form action="/login" method="get">
-                            <button type="submit" id="hiddenLoginLink" hidden></button>
-                        </form>                     
-                        <a class="link-dark text-decoration-none" onclick="document.getElementById('hiddenLoginLink').click();" href="" >Employee Login</a>
-                    </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="">Terms of Use</a>
+                        <a class="link-dark text-decoration-none me-3" href="/privacy">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="/terms">Terms of Use</a>
                     </div>
                 </div>
             </div>
