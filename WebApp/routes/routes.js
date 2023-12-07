@@ -120,11 +120,11 @@ module.exports = (app, knex) => {
     app.get("/survey", (req, res) => {
         res.render("survey");
     });
-    // Employee Login
+    // Login
     app.get("/login", (req, res) => {
-        res.render("login", {"params": {"failed": req.query.failed || false, "username": req.query.username || ""}});
+        res.render("login", {"params": {"failed": req.query.failed == 'true' ? true : false, "username": req.query.username || ""}})
     });
-    // Employee Signup
+    // Signup
     app.get("/signUp", (req, res) => {
         knex("employees").select("username").distinct().then(results => {
             let usernames = [];
@@ -208,7 +208,6 @@ module.exports = (app, knex) => {
     {//Admin Views
     // Landing
     app.get("/admin/index", (req, res) => {
-        console.log(req);
         if (verifyAdmin(req.headers.referer) || req.query.skip || req.query.login) {
             res.render("admin/index");
         } else {
@@ -305,7 +304,7 @@ module.exports = (app, knex) => {
                 let city_id = req.body.employeeId;
                 let is_admin = false;
                 createEmployee(email, password, first_name, last_name, city_id, is_admin);
-                res.render("/login");
+                res.redirect("/login");
             });
         });
     });
@@ -314,7 +313,7 @@ module.exports = (app, knex) => {
             {"username": req.body.workEmail}
         ).then(employee => {
             if (employee.length == 0) {
-                res.redirect("signUp?failed=" + true + "?result=" + encodeURIComponent("Account does not exist with email: " + req.body.workEmail));
+                res.redirect("/login?failed=" + true);
             } else {
                 bcrypt.compare(req.body.password, employee[0].hash, (err, same) => {
                     if (same) {
@@ -324,7 +323,7 @@ module.exports = (app, knex) => {
                             res.redirect("/employee/index?login=" + true);
                         }
                     } else {
-                        res.redirect("/login?failed=" + true + "?username=" + employee[0].username);
+                        res.redirect("/login?failed=true&username=" + req.body.workEmail);
                     }
                 });
             };
@@ -334,9 +333,9 @@ module.exports = (app, knex) => {
     {//API Actions
     };
     app.get("/testAdmin", (req, res) => {
-        res.redirect("/admin/index?skip=" + true);
+        res.redirect("/admin/index?login=" + true);
     });
     app.get("/testEmployee", (req, res) => {
-        res.redirect("/employee/index?skip=" + true);
+        res.redirect("/employee/index?login=" + true);
     });
 };

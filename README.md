@@ -29,6 +29,16 @@ Kimberly Notes:
                                             return(document.getElementById("emailError").innerHTML = sOutput)
                                         }
                                 %>
-                                 
+
                                 <div class="invalid-feedback" data-sb-feedback="email:required">A work email is required.</div>
                                 <div class="invalid-feedback" name="emailError" id="emailError">Email is not valid.</div>
+
+BRADEN Todo:
+Submit Survey Routes
+Employee/Admin Account routes
+Admin Employees route
+
+OTHER Todo:
+Employee/Admin Account page
+Admin Employees page
+Check/Fix Broken Admin/Employee CSS

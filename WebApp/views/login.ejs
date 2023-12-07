@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Mindful Media Survey - Login Up</title>
+        <title>Mindful Media Survey - Login</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/img/favicon_io/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -54,11 +54,14 @@
                         <!-- Dashboard Link -->
                         <li class="nav-item"><a class="nav-link" href="/tableau">Explore Survey Results</a></li>
                         <!-- Take Survey Button -->
+                        <form action="/survey" method="get">
+                            <button id="takeSurvey" name="takeSurvey" class="btn btn-info rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#intex">
+                                <span class="d-flex align-items-center">
                                     <i class="bi-chat-text-fill me-2"></i>
                                     <span class="small">Take Survey</span>
                                 </span>
                             </button>
-                        </form>
+                        </form>    
                         </li>
                     </ul>
                 </div>
@@ -78,7 +81,7 @@
                         <div class="col-md-6 " >
                             <div class="form-group mb-md-0 ">
                                 <!-- Work Email address input-->
-                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail();" placeholder="Work Email *" value="<% params.failed ? params.username : "" %>"required />
+                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail();" placeholder="Email *" value="<%= params.username %>" required />
                                 <!-- <div class="invalid-feedback" name="emailError" id="emailError">Invalid Email Format</div> -->
                                 <small id="emailHelpInline" class="text-secondary">Please Supply Your Email.</small>
                             </div>
@@ -87,13 +90,20 @@
                         <div class="col-md-6">
                             <div class="form-group mb-md-0 ">
                                 <!-- Password input-->
-                                <input class="form-control" id="password" name="password" type="password" placeholder="Create Password *" required />
+                                <input class="form-control" id="password" name="password" type="password" placeholder="Password *" required />
                             </div>
                         </div>                         
                     </div>
                     <!-- Submit Button-->
                     <div class="text-center"><button class="btn btn-info btn-xl text-uppercase " id="submitButton" name="submitButton" type="submit">Login</button></div>
                 </form>
+                <% if (params.failed) { %>
+                    <br>
+                    <br>
+                    <div class="text-center">
+                        <h5>Invalid Email/Password.</h2>
+                    </div>
+                <% }; %>
             </div>
         </section>
         <!-- Footer-->
@@ -103,6 +113,7 @@
                     <div class="col-lg-4 text-lg-start">Copyright &copy; Mindful Media Survey 2023</div>
                     <div class="col-lg-4 my-3 my-lg-0"></div>
                     <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none me-3" href="/signUp">Create Account</a>
                         <a class="link-dark text-decoration-none me-3" href="/privacy">Privacy Policy</a>
                         <a class="link-dark text-decoration-none" href="/terms">Terms of Use</a>
                     </div>
