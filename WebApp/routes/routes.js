@@ -67,8 +67,8 @@ module.exports = (app, knex) => {
         } else {
             let validRequest = false;
             let regexs = [
-                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/admin\/'),
-                new RegExp('http[s]?:\/\/localhost:3000\/admin\/')
+                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/admin'),
+                new RegExp('http[s]?:\/\/localhost:3000\/admin')
             ];
             regexs.forEach((regex) => {
                 if (regex.test(referer)) {
@@ -90,8 +90,8 @@ module.exports = (app, knex) => {
         } else {
             let validRequest = false;
             let regexs = [
-                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/employee\/'),
-                new RegExp('http[s]?:\/\/localhost:3000\/employee\/'),
+                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/employee'),
+                new RegExp('http[s]?:\/\/localhost:3000\/employee'),
             ];
             regexs.forEach((regex) => {
                 if (regex.test(referer)) {
@@ -338,4 +338,7 @@ module.exports = (app, knex) => {
     app.get("/testEmployee", (req, res) => {
         res.redirect("/employeeindex?login=" + true);
     });
+    app.get("/test", (req, res) => {
+        res.render("adminaccountdraft", {params: {first_name: "Kimberly", last_name : "Hunter", city_id: 54321, username: "workPlease@provocity.com"}});
+    })
 };
