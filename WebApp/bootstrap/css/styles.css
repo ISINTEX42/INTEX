@@ -11441,8 +11441,7 @@ header.masthead .masthead-heading {
 }
 /* intex - added from the contact form section to create possible tableau dashboard display area*/
 section#dashboard {
-  background-color: #212529;
-  background-image: url("../assets/img/dashboard.png");
+  background-color: #fff;
   background-repeat: no-repeat;
   background-position: center;
 }
