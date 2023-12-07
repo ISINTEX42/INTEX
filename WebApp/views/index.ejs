@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-45G6K3DR9B"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-45G6K3DR9B');
+        </script>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Mindful Media Survey</title>
+        <title>Mindful Media Survey - Home</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/img/favicon_io/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -17,14 +25,11 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
-        <!-- Navigation-->
+        <!-- Public Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
                 <!-- Logo Homepage Link -->
-                <form action="/" method="get">
-                    <button type="submit" id="hiddenIndexLink" hidden></button>
-                </form>    
-                <a href="" class="navbar-brand" onclick="document.getElementById('hiddenIndexLink').click();"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
+                <a href="/" class="navbar-brand"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -32,10 +37,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <!-- Dashboard Link -->
-                        <form action="/tableau" method="get">
-                            <button type="submit" id="hiddenTableauLink" hidden></button>
-                        </form> 
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenTableauLink').click();" href="">Explore Survey Results</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/tableau">Explore Survey Results</a></li>
                         <!-- Take Survey Button -->
                         <form action="/survey" method="get">
                             <button id="takeSurvey" name="takeSurvey" class="btn btn-info rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#intex">
@@ -55,7 +57,9 @@
             <div class="container">
                 <div class="masthead-subheading">Mindful Media Survey</div>
                 <div class="masthead-heading text-uppercase">Participate and Explore</div>
-                <a class="btn btn-info btn-xl text-uppercase" href="#services">More Information</a>
+                <a class="btn btn-info btn-xl text-uppercase" href="#portfolio">More Information</a>
+                <br><br>
+                <a class="btn btn-info btn-xl text-uppercase" href="#about">Stories</a>
             </div>
         </header>
         <!-- Portfolio Grid-->
@@ -153,34 +157,33 @@
                         </div>
                     </li>
                     <li class="timeline-inverted">
-                        <div class="timeline-image">
-                            <h4>
-                                Be Part
-                                <br />
-                                Of Our
-                                <br />
-                                Story!
-                            </h4>
-                        </div>
+                        <a href="/survey">
+                            <div class="timeline-image">
+                                <h4>
+                                    Be Part
+                                    <br />
+                                    Of Our
+                                    <br />
+                                    Story!
+                                </h4>
+                            </div>
+                        </a>
                     </li>
                 </ul>
             </div>
         </section>
-        <!-- Footer-->
+        <!-- Public Footer-->
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-4 text-lg-start">Copyright &copy; Mindful Media Survey 2023</div>
                     <div class="col-lg-4 my-3 my-lg-0">
-                        <!-- Employee Login Link-->
-                        <form action="/login" method="get">
-                            <button type="submit" id="hiddenLoginLink" hidden></button>
-                        </form>                     
-                        <a class="link-dark text-decoration-none" onclick="document.getElementById('hiddenLoginLink').click();" href="" >Employee Login</a>
+                        <!-- Employee Login Link-->               
+                        <a class="link-dark text-decoration-none" href="/login" >Employee Login</a>
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="">Terms of Use</a>
+                        <a class="link-dark text-decoration-none me-3" href="/privacy">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="/terms">Terms of Use</a>
                     </div>
                 </div>
             </div>
@@ -211,9 +214,12 @@
                                         1. Set a Timer: Decide how much time you want to spend on social media each day. Try spending 30 minutes less on social media than you usually do. Use a timer to remind you when it's time to log off.
                                         <br> 2. Quiet Hours: Choose certain times of the day, like meal times or before bed, to be free from social media. This can help you relax.
                                     </p>
-                                    <br><button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        Explore the Data
-                                    </button>
+                                    <br>
+                                    <a href="/tableau">
+                                        <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                            Explore the Data
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -245,10 +251,11 @@
                                     <p>
                                         1. Mindful Scrolling: Be aware of how you feel when using social media. If you notice it's making you feel down, it might be time to take a break.
                                         <br> 2. Positive Engagement: Use social media to connect with friends and share positive experiences, rather than passively scrolling through feeds.
-                                    </p><br>
-                                    <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        Explore the Data
-                                    </button>
+                                    </p><a href="/tableau">
+                                        <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                            Explore the Data
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -279,10 +286,11 @@
                                         <p>
                                             1. Notification Control: Turn off non-essential notifications from your social media apps. By limiting interruptions, you can maintain better focus on your tasks.
                                         <br> 2. Scheduled Scrolling: Allocate specific times in your day for checking social media. This helps create a habit of intentional use rather than impulsive browsing, which can lead to fewer distractions throughout the day.
-                                        </p><br>
-                                    <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        Explore the data
-                                    </button>
+                                        </p><a href="/tableau">
+                                        <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                            Explore the Data
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
