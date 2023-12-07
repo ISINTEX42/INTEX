@@ -78,9 +78,9 @@
                         <div class="col-md-6 " >
                             <div class="form-group mb-md-0 ">
                                 <!-- Work Email address input-->
-                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail();" placeholder="Work Email *" required />
-                                <!-- Don't Have an Account - Sign Up-->
-                                <small class="text-dark">Don't have an account? <a class="link-secondary" href="/signUp" id="signUp" name="signUp" link-info>Sign Up Here</a></small> 
+                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail();" placeholder="Work Email *" value="<% params.failed ? params.username : "" %>"required />
+                                <!-- <div class="invalid-feedback" name="emailError" id="emailError">Invalid Email Format</div> -->
+                                <small id="emailHelpInline" class="text-secondary">Please Supply Your Email.</small>
                             </div>
                         </div>
                         <!-- change column-->
