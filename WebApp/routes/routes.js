@@ -17,6 +17,7 @@ Views (GET):
         /admin/tableau
         /admin/survey
         /admin/data
+        /admin/viewSurvey
         /admin/editSurvey
         /admin/analytics
         /admin/employees
@@ -57,14 +58,55 @@ module.exports = (app, knex) => {
             });
         });
     };
+    function verifyAdmin(referer) {
+        if (referer === undefined) {
+            return false;
+        } else {
+            let validRequest = false;
+            let regexs = [
+                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/admin\/'),
+                new RegExp('http[s]?:\/\/localhost:3000\/admin\/')
+            ];
+            regexs.forEach((regex) => {
+                if (regex.test(referer)) {
+                    validRequest = true;
+                    return;
+                };
+            });
+            if (validRequest) {
+                return true;
+            } else {
+                return false;
+            };
+        };
+        return false;
+    };
+    function verifyEmployee(referer) {
+        if (referer === undefined) {
+            return false;
+        } else {
+            let validRequest = false;
+            let regexs = [
+                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/employee\/'),
+                new RegExp('http[s]?:\/\/localhost:3000\/employee\/'),
+            ];
+            regexs.forEach((regex) => {
+                if (regex.test(referer)) {
+                    validRequest = true;
+                    return;
+                };
+            });
+            if (validRequest) {
+                return true;
+            } else {
+                return false;
+            };
+        };
+        return false;
+    };
     {//Public Views
     // Landing
     app.get("/", (req, res) => {
-        console.log(req.protocol + "://" + req.get("host") + req.originalUrl);
-        req.options('/route', function (req, res) {
-            let origin = req.get('origin');
-            console.log(origin);
-        });
         res.render("index");
     });
     // Tableau
@@ -73,11 +115,6 @@ module.exports = (app, knex) => {
     });
     // Take a Survey
     app.get("/survey", (req, res) => {
-        console.log(req.protocol + "://" + req.get("host") + req.originalUrl);
-        req.options('/route', function (req, res) {
-            let origin = req.get('origin');
-            console.log(origin);
-        });
         res.render("survey");
     });
     // Employee Login
@@ -86,58 +123,127 @@ module.exports = (app, knex) => {
     });
     // Employee Signup
     app.get("/signUp", (req, res) => {
-        let usernames = ['this', 'is', 'a', 'list', 'of', 'usernames', 'to', 'test']
-        res.render("signUp", {"params": {"usernames": usernames}});
+        knex("employees").select("username").distinct().then(results => {
+            let usernames = [];
+            results.forEach((username) => {
+                usernames.push(username);
+            });
+            res.render("signUp", {"params": {"usernames": usernames}});
+        });
     });};
     {//Employee Views
     // Landing
     app.get("/employee/index", (req, res) => {
-        res.render("employee/index");
+        if (verifyEmployee(req.headers.referer) || req.query.skip) {
+            res.render("employee/index");
+        } else {
+            res.redirect("/login");
+        };
     });
     // Tableau
     app.get("/employee/tableau", (req, res) => {
-        res.render("employee/tableau");
+        if (verifyEmployee(req.headers.referer)) {
+            res.render("employee/tableau");
+        } else {
+            res.redirect("/login");
+        };
     });
     // Take a Survey
     app.get("/employee/survey", (req, res) => {
-        res.render("employee/survey");
+        if (verifyEmployee(req.headers.referer)) {
+            res.render("employee/survey");
+        } else {
+            res.redirect("/login");
+        };
     });
     // View Raw Data
     app.get("/employee/data", (req, res) => {
-        res.render("employee/data");
+        if (verifyEmployee(req.headers.referer)) {
+            res.render("employee/data");
+        } else {
+            res.redirect("/login");
+        };
     });
     // Edit Account Info
     app.get("/employee/account", (req, res) => {
-        res.render("employee/account");
+        if (verifyEmployee(req.headers.referer)) {
+            res.render("employee/account");
+        } else {
+            res.redirect("/login");
+        };
     });};
     {//Admin Views
     // Landing
     app.get("/admin/index", (req, res) => {
-        res.render("admin/index");
+        if (verifyAdmin(req.headers.referer) || req.query.skip) {
+            res.render("admin/index");
+        } else {
+            res.redirect("/login");
+        };
     });
     // Tableau
     app.get("/admin/tableau", (req, res) => {
-        res.render("admin/tableau");
+        if (verifyAdmin(req.headers.referer)) {
+            res.render("admin/tableau");
+        } else {
+            res.redirect("/login");
+        };
     });
     // Take a Survey
     app.get("/admin/survey", (req, res) => {
-        res.render("admin/survey");
+        if (verifyAdmin(req.headers.referer)) {
+            res.render("admin/survey");
+        } else {
+            res.redirect("/login");
+        };
     });
     // View/Edit Raw Data
     app.get("/admin/data", (req, res) => {
-        res.render("admin/data");
+        if (verifyAdmin(req.headers.referer)) {
+            knex("surveyee_info").then(surveys => {
+                let columns = [];
+                let rows = [];
+                if (!surveys.length == 0) {
+                    for (let [key, value] of Object.entries(surveys[0])) {
+                        columns.push(key);
+                    };
+                    surveys.forEach((survey) => {
+                        let survey_vals = [];
+                        for (let [key, value] of Object.entries(survey)) {
+                            survey_vals.push(value);
+                        };
+                        rows.push(survey_vals);
+                    });
+                };
+                res.render("admin/data", {"params": {"columns": columns, "rows": rows}});
+            });
+        } else {
+            res.redirect("/login");
+        };
     });
     // View Google Analytics
     app.get("/admin/analytics", (req, res) => {
-        res.render("admin/analytics");
+        if (verifyAdmin(req.headers.referer)) {
+            res.render("admin/analytics");
+        } else {
+            res.redirect("/login");
+        };
     });
     // Elevate employee accounts
     app.get("/admin/empmloyees", (req, res) => {
-        res.render("admin/employees");
+        if (verifyAdmin(req.headers.referer)) {
+            res.render("admin/employees");
+        } else {
+            res.redirect("/login");
+        };
     });
     // Edit Account Info
     app.get("/admin/account", (req, res) => {
-        res.render("admin/account");
+        if (verifyAdmin(req.headers.referer)) {
+            res.render("admin/account");
+        } else {
+            res.redirect("/login");
+        };
     });};
     {//CRUD Actions
     app.post("/submitSignUp", (req, res) => {
@@ -175,27 +281,13 @@ module.exports = (app, knex) => {
         req.body.password
         res.render("/employee/index")
     });
-    app.get("/testThis", (req, res) => {
-        res.send("");
-    });
     };
     {//API Actions
     };
-    app.get("/Landing", (req, res) => {
-        res.render("Landing");
+    app.get("/testAdmin", (req, res) => {
+        res.redirect("/admin/index?skip=" + true);
     });
-
-
-
-
-
-
-    // admin test routes
-    app.get("/testemp", (req, res) => {
-        res.render("employee/empnavbarTest");
-    })
-    app.get("/testadmin", (req, res) => {
-        res.render("admin/navbarTest");
-    })
-
+    app.get("/testEmployee", (req, res) => {
+        res.redirect("/employee/index?skip=" + true);
+    });
 };

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-45G6K3DR9B"></script>
         <script>
@@ -54,7 +55,7 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="mini" style="height: 10px;">
+        <header class="mini">
             <div class="container">
                 <div class="mini-subheading">Database</div>
             </div>
@@ -64,38 +65,41 @@
         <section class="page-section" id="data">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Data Tables</h2>
-                        <table style="width: 100%; background-color: antiquewhite; border: 1px solid black; border: 1px solid black;">
-                            <thead style="background-color: cornflowerblue; color: white; border: 1px solid black;">
+                    <% if (!params.rows.length == 0) { %>
+                        <table>
+                            <thead>
                                 <tr>
-                                    <% for (let i=0; i < data.columns.length; i++) { %>
-                                        <th style="text-align: left; border: 1px solid black;"><%= data.columns[i] %></th>
-                                     <% }; %>
-                                    <th style="border: 1px solid black;">Edit</th>
-                                    <th style="border: 1px solid black;">Delete</th>
+                                    <% for (let i=0; i < params.columns.length; i++) { %>
+                                        <th><%= params.columns[i] %></th>
+                                        <% }; %>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
-                            <tbody style="font-family: Arial; font-size: 9pt;">
-                                <% for (let i = 0; i < data.rows.length; i++) { %>
+                            <tbody>
+                                <% for (let i = 0; i < params.rows.length; i++) { %>
                                     <tr>
-                                        <% for (let j = 0; j < data.columns.length; j++) { %>
-                                            <th style="text-align: left; border: 1px solid black;"><%= data.rows[i][j] %></th>
+                                        <% for (let j = 0; j < params.columns.length; j++) { %>
+                                            <th><%= params.rows[i][j] %></th>
                                         <% }; %>
-                                        <th style="text-align: left; border: 1px solid black;">
-                                            <form action="/editSurvey/<%= data.rows[i][0] %>" method="GET">
-                                                <input type="submit" value="Edit" id="editSurvey<%= data.rows[i][0] %>" name="editSurvey<%= data.rows[i][0] %>">
+                                        <th>
+                                            <form action="/admin/editSurvey/<%= params.rows[i][0] %>" method="GET">
+                                                <input type="submit" value="Edit" id="editSurvey<%= params.rows[i][0] %>" name="editSurvey<%= params.rows[i][0] %>">
                                             </form>
                                         </th>
-                                        <th style="text-align: left; border: 1px solid black;">
-                                            <form action="/deleteSurvey/<%= data.rows[i][0] %>" method="POST">
-                                                <input type="submit" value="Delete" id="deleteSurvey<%= data.rows[i][0] %>" name="deleteSurvey<%= data.rows[i][0] %>">
+                                        <th>
+                                            <form action="/admin/deleteSurvey/<%= params.rows[i][0] %>" method="POST">
+                                                <input type="submit" value="Delete" id="deleteSurvey<%= params.rows[i][0] %>" name="deleteSurvey<%= params.rows[i][0] %>">
                                             </form>
                                         </th>
                                     </tr>
                                 <% }; %>
                             </tbody>
                         </table>
-                    <br>
+                        <br>
+                    <% } else { %>
+
+                    <% }; %>
                 </div>
         </section>
         <!-- Admin Footer-->
@@ -104,8 +108,8 @@
                 <div class="row align-items-center">
                     <div class="col-lg-4 text-lg-start">Copyright &copy; Mindful Media Survey 2023</div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="/privacy">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="/terms">Terms of Use</a>
+                        <a class="link-dark text-decoration-none me-3" href="/admin/privacy">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="/admin/terms">Terms of Use</a>
                     </div>
                 </div>
             </div>
