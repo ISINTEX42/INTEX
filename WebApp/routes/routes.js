@@ -143,31 +143,31 @@ module.exports = (app, knex) => {
     };
     {//Employee Views
     // Landing
-    app.get("/employee/index", (req, res) => {
+    app.get("/employeeindex", (req, res) => {
         if (verifyEmployee(req.headers.referer) || req.query.skip || req.query.login) {
-            res.render("employee/index");
+            res.render("employeeindex");
         } else {
             res.redirect("/login");
         };
     });
     // Tableau
-    app.get("/employee/tableau", (req, res) => {
+    app.get("/employeetableau", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employee/tableau");
+            res.render("employeetableau");
         } else {
             res.redirect("/login");
         };
     });
     // Take a Survey
-    app.get("/employee/survey", (req, res) => {
+    app.get("/employeesurvey", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employee/survey");
+            res.render("employeesurvey");
         } else {
             res.redirect("/login");
         };
     });
     // View Raw Data
-    app.get("/employee/data", (req, res) => {
+    app.get("/employeedata", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
             knex("surveyee_info").then(surveys => {
                 let columns = [];
@@ -184,54 +184,54 @@ module.exports = (app, knex) => {
                         rows.push(survey_vals);
                     });
                 };
-                res.render("employee/data", {"params": {"columns": columns, "rows": rows}});
+                res.render("employeedata", {"params": {"columns": columns, "rows": rows}});
             });
         } else {
             res.redirect("/login");
         };
     });
     // Edit Account Info
-    app.get("/employee/account", (req, res) => {
+    app.get("/employeeaccount", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employee/account");
+            res.render("employeeaccount");
         } else {
             res.redirect("/login");
         };
     });
-    app.get("/employee/privacy", (req, res) => {
+    app.get("/employeeprivacy", (req, res) => {
         res.send("Privacy page not implemented for Provo City Survey Pages");
     });
-    app.get("/employee/terms", (req, res) => {
+    app.get("/employeeterms", (req, res) => {
         res.send("Terms and conditions page not implemented for Provo City Survey Pages");
     });
     };
     {//Admin Views
     // Landing
-    app.get("/admin/index", (req, res) => {
+    app.get("/adminindex", (req, res) => {
         if (verifyAdmin(req.headers.referer) || req.query.skip || req.query.login) {
-            res.render("admin/index");
+            res.render("adminindex");
         } else {
             res.redirect("/login");
         };
     });
     // Tableau
-    app.get("/admin/tableau", (req, res) => {
+    app.get("/admintableau", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("admin/tableau");
+            res.render("admintableau");
         } else {
             res.redirect("/login");
         };
     });
     // Take a Survey
-    app.get("/admin/survey", (req, res) => {
+    app.get("/adminsurvey", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("admin/survey");
+            res.render("adminsurvey");
         } else {
             res.redirect("/login");
         };
     });
     // View/Edit Raw Data
-    app.get("/admin/data", (req, res) => {
+    app.get("/admindata", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
             knex("surveyee_info").then(surveys => {
                 let columns = [];
@@ -248,32 +248,32 @@ module.exports = (app, knex) => {
                         rows.push(survey_vals);
                     });
                 };
-                res.render("admin/data", {"params": {"columns": columns, "rows": rows}});
+                res.render("admindata", {"params": {"columns": columns, "rows": rows}});
             });
         } else {
             res.redirect("/login");
         };
     });
     // Elevate employee accounts
-    app.get("/admin/employees", (req, res) => {
+    app.get("/adminemployees", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("admin/employees");
+            res.render("adminemployees");
         } else {
             res.redirect("/login");
         };
     });
     // Edit Account Info
-    app.get("/admin/account", (req, res) => {
+    app.get("/adminaccount", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("admin/account");
+            res.render("adminaccount");
         } else {
             res.redirect("/login");
         };
     });
-    app.get("/admin/privacy", (req, res) => {
+    app.get("/adminprivacy", (req, res) => {
         res.send("Privacy page not implemented for Provo City Survey Pages");
     });
-    app.get("/admin/terms", (req, res) => {
+    app.get("/adminterms", (req, res) => {
         res.send("Terms and conditions page not implemented for Provo City Survey Pages");
     });
     };
@@ -318,9 +318,9 @@ module.exports = (app, knex) => {
                 bcrypt.compare(req.body.password, employee[0].hash, (err, same) => {
                     if (same) {
                         if (employee[0].is_admin) {
-                            res.redirect("/admin/index?login=" + true);
+                            res.redirect("/adminindex?login=" + true);
                         } else {
-                            res.redirect("/employee/index?login=" + true);
+                            res.redirect("/employeeindex?login=" + true);
                         }
                     } else {
                         res.redirect("/login?failed=true&username=" + req.body.workEmail);
@@ -333,9 +333,9 @@ module.exports = (app, knex) => {
     {//API Actions
     };
     app.get("/testAdmin", (req, res) => {
-        res.redirect("/admin/index?login=" + true);
+        res.redirect("/adminindex?login=" + true);
     });
     app.get("/testEmployee", (req, res) => {
-        res.redirect("/employee/index?login=" + true);
+        res.redirect("/employeeindex?login=" + true);
     });
 };
