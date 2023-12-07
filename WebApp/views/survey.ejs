@@ -26,14 +26,11 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
-        <!-- Navigation-->
+        <!-- Public Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
                 <!-- Logo Homepage Link -->
-                <form action="" method="get">
-                    <button type="submit" id="hiddenIndexLink" hidden></button>
-                </form>    
-                <a href="/" class="navbar-brand" onclick="document.getElementById('hiddenIndexLink').click();"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
+                <a href="/" class="navbar-brand"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -41,450 +38,436 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <!-- Dashboard Link -->
-                        <form action="/tableau" method="get">
-                            <button type="submit" id="hiddenTableauLink" hidden></button>
-                        </form> 
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenTableauLink').click();" href="">Explore Survey Results</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/tableau">Explore Survey Results</a></li>
                         <!-- Take Survey Button -->
-                        <form action="/survey" method="get">
-                            <button id="takeSurvey" name="takeSurvey" class="btn btn-info rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#intex">
-                                <span class="d-flex align-items-center">
                                     <i class="bi-chat-text-fill me-2"></i>
                                     <span class="small">Take Survey</span>
                                 </span>
                             </button>
-                        </form>    
+                        </form>
                         </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-        
-        <!-- Contact-->
+        </nav>        
+        <!-- Survey -->
         <section class="page-section" id="contact">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Please Take the Survey</h2>
                     <h3 class="section-subheading text-muted">Social Media Usage and Mental Health</h3>
                 </div>
-                <!-- * * * * * * * * * * * * * * *-->
-                <!-- * * SB Forms Contact Form * *-->
-                <!-- * * * * * * * * * * * * * * *-->
-                <!-- This form is pre-integrated with SB Forms.-->
-                <!-- To make this form functional, sign up at-->
-                <!-- https://startbootstrap.com/solution/contact-forms-->
-                <!-- to get an API token!-->
-                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                <form id="contactForm" >
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="survey-container">
-                                    <div>
-                                        <h1 class="questions">1. What is your age?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <label for="orange"></label>
-                                                <input type="number" class="integerbox"  min="10" max="100">
-                                                </label>
-                                            </div>
-                                        <h1 class="questions">2. What is your gender?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="orange" name="q2answer" value="Orange">
-                                                <label for="orange">Male</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="orange" name="q2answer" value="Orange">
-                                                <label for="orange">Female</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="orange" name="q2answer" value="Orange">
-                                                <label for="orange">Other</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">3. What is your current relationship status?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q3answer" value="Apple">
-                                                <label for="apple">Single</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q3answer" value="Banana">
-                                                <label for="banana">Married</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q3answer" value="Banana">
-                                                <label for="banana">Divorced</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="orange" name="q3answer" value="Orange">
-                                                <label for="orange">In a relationship</label><BR><br><br>
-                                            </div>
-                                        <h1 class="questions">4. What is your current occupation status?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q4answer" value="Apple">
-                                                <label for="apple">University Student</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q4answer" value="Banana">
-                                                <label for="banana">Non-University Student</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="orange" name="q4answer" value="Orange">
-                                                <label for="orange">Salaried Worker</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="orange" name="q4answer" value="Orange">
-                                                <label for="orange">Retired</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions" >5. What type of organizations are you affiliated with? (Check all that apply)</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="apple" name="q5answer" value="Apple">
-                                                <label for="apple">University</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="banana" name="q5answer" value="Banana">
-                                                <label for="banana">School</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="orange" name="q5answer" value="Orange">
-                                                <label for="orange">Company</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="orange" name="q5answer" value="Orange">
-                                                <label for="orange">Private</label><br>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="orange" name="q5answer" value="Orange">
-                                                <label for="orange">Government</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="orange" name="q5answer" value="Orange">
-                                                <label for="orange">None</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">6. Do you use social media?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q6answer" value="Apple">
-                                                <label for="apple">Yes</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q6answer" value="Banana">
-                                                <label for="banana">No</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">7. What social media platforms do you commonly use? (Check all that apply)</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="apple" name="fruit" value="Apple">
-                                                <label for="apple">Facebook</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="banana" name="fruit" value="Banana">
-                                                <label for="banana">Twitter</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="banana" name="fruit" value="Banana">
-                                                <label for="banana">Instagram</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="banana" name="fruit" value="Banana">
-                                                <label for="banana">Youtube</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="banana" name="fruit" value="Banana">
-                                                <label for="banana">Reddit</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="banana" name="fruit" value="Banana">
-                                                <label for="banana">Pinterest</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="banana" name="fruit" value="Banana">
-                                                <label for="banana">Snapchat</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="banana" name="fruit" value="Banana">
-                                                <label for="banana">Discord</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="checkbox" id="banana" name="fruit" value="Banana">
-                                                <label for="banana">TikTok</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">8. What is the average amount of time you spend on social media every day?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q8answer" value="Apple">
-                                                <label for="apple">Less than an Hour</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q8answer" value="Banana">
-                                                <label for="banana">Between 1 and 2 hours</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q8answer" value="Banana">
-                                                <label for="banana">Between 2 and 3 hours</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q8answer" value="Banana">
-                                                <label for="banana">Between 3 and 4 hours</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q8answer" value="Banana">
-                                                <label for="banana">Between 4 and 5 hours</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q8answer" value="Banana">
-                                                <label for="banana">More than 5 hours</label><br><br><br>
-                                            </div>
-                                            <h1 class="notes" style= "padding-left: 25px;">   For the next 12 questions, rate yourself on a scale of 1 to 5, where 1 is the lowest and 5 is the highest</h1><BR><br><br>  
-                                        <h1 class="questions">9. How often do you find yourself using social media without a specific purpose?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q9answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q9answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q9answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q9answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q9answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">10. How often do you get distracted by social media when you are busy doing something?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q10answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q10answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q10answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q10answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q10answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">11. Do you feel restless if you haven’t used social media in a while?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q11answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q11answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q11answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q11answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q11answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">12. How easily distracted are you?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q12answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q12answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q12answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q12answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q12answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">13. How much are you bothered by worries?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q13answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q13answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q13answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q13answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q13answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">14. Do you find it difficult to concentrate on things?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q14answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q14answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q14answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q14answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q14answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">15. How often do you compare yourself to other successful people through the use of social media?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q15answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q15answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q15answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q15answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q15answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">16. Following the previous question, how do you feel about these comparisons, generally speaking?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q16answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q16answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q16answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q16answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q16answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">17. How often do you look to seek validation from features of social media?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q17answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q17answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q17answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q17answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q17answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">18. How often do you feel depressed or down?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q18answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q18answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q18answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q18answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q18answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">19. How frequently does your interest in daily activities fluctuate?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q19answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q19answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q19answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q19answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q19answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                        <h1 class="questions">20. How often do you face issues regarding sleep?</h1><BR>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="apple" name="q20answer" value="Apple">
-                                                <label for="apple">1</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q20answer" value="Banana">
-                                                <label for="banana">2</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q20answer" value="Banana">
-                                                <label for="banana">3</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q20answer" value="Banana">
-                                                <label for="banana">4</label>
-                                            </div>
-                                            <div class="checkbox-group">
-                                                <input type="radio" id="banana" name="q20answer" value="Banana">
-                                                <label for="banana">5</label><br><br><br>
-                                            </div>
-                                            <div class="button-container">
-                                                <button class = "survey-button">Submit</button>
-                                            </div>
+                                    <h1 class="questions">1. What is your age?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <label for="age"></label>
+                                            <input type="number" class="integerbox" id="age" name="age" min="10" max="100">
+                                            </label>
+                                        </div>
+                                    <h1 class="questions">2. What is your gender?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbMale" name="gender" value="Male">
+                                            <label for="rbMale">Male</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbFemale" name="gender" value="Female">
+                                            <label for="rbFemale">Female</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbOther" name="gender" value="Other">
+                                            <label for="rbOther">Other</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">3. What is your current relationship status?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbSingle" name="relationshipStat" value="Single">
+                                            <label for="rbSingle">Single</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbMarried" name="relationshipStat" value="Married">
+                                            <label for="rbMarried">Married</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDivorced" name="relationshipStat" value="Divorced">
+                                            <label for="rbDivorced">Divorced</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbInRelationship" name="relationshipStat" value="In a relationship">
+                                            <label for="rbInRelationship">In a relationship</label><BR><br><br>
+                                        </div>
+                                    <h1 class="questions">4. What is your current occupation status?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbUniversityStudent" name="occupation" value="University Student">
+                                            <label for="rbUniversityStudent">University Student</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbNonUniversityStudent" name="occupation" value="Non-University Student">
+                                            <label for="rbNonUniversityStudent">Non-University Student</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbSalaried" name="occupation" value="Salaried Worker">
+                                            <label for="rbSalaried">Salaried Worker</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbRetired" name="occupation" value="Retired">
+                                            <label for="rbRetired">Retired</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions" >5. What type of organizations are you affiliated with? (Check all that apply)</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbUniversity" name="affiliation" value="University">
+                                            <label for="cbUniversity">University</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbSchool" name="affiliation" value="School">
+                                            <label for="cbSchool">School</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbCompany" name="affiliation" value="Company">
+                                            <label for="cbCompany">Company</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbPrivate" name="affiliation" value="Private">
+                                            <label for="cbPrivate">Private</label><br>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbGovernment" name="affiliation" value="Government">
+                                            <label for="cbGovernment">Government</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbNone" name="affiliation" value="None">
+                                            <label for="cbNone">None</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">6. Do you use social media?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbYes" name="socialMedia" value="Yes">
+                                            <label for="rbYes">Yes</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbNo" name="socialMedia" value="No">
+                                            <label for="rbNo">No</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">7. What social media platforms do you commonly use? (Check all that apply)</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbFacebook" name="platforms" value="Facebook">
+                                            <label for="cbFacebook">Facebook</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbTwitter" name="platforms" value="Twitter">
+                                            <label for="cbTwitter">Twitter</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbInstagram" name="platforms" value="Instagram">
+                                            <label for="cbInstagram">Instagram</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbYoutube" name="platforms" value="Youtube">
+                                            <label for="cbYoutube">Youtube</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbReddit" name="platforms" value="Reddit">
+                                            <label for="cbReddit">Reddit</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbPinterest" name="platforms" value="Pinterest">
+                                            <label for="cbPinterest">Pinterest</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbSnapchat" name="platforms" value="Snapchat">
+                                            <label for="cbSnapchat">Snapchat</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbDiscord" name="platforms" value="Discord">
+                                            <label for="cbDiscord">Discord</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="cbTikTok" name="platforms" value="TikTok">
+                                            <label for="cbTikTok">TikTok</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">8. What is the average amount of time you spend on social media every day?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbLessHour" name="time" value="Less than an Hour">
+                                            <label for="rbLessHour">Less than an Hour</label>
+                                        </div>time
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rb1To2" name="time" value="Between 1 and 2 hours">
+                                            <label for="rb1To2">Between 1 and 2 hours</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rb2To3" name="time" value="Between 2 and 3 hours">
+                                            <label for="rb2To3">Between 2 and 3 hours</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rb3To4" name="time" value="Between 3 and 4 hours">
+                                            <label for="rb3To4">Between 3 and 4 hours</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rb4To5" name="time" value="Between 4 and 5 hours">
+                                            <label for="rb4To5">Between 4 and 5 hours</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rb5More" name="time" value="More than 5 hours">
+                                            <label for="rb5More">More than 5 hours</label><br><br><br>
+                                        </div>
+                                        <h1 class="notes" style= "padding-left: 25px;">   For the next 12 questions, rate yourself on a scale of 1 to 5, where 1 is the lowest and 5 is the highest</h1><BR><br><br>  
+                                    <h1 class="questions">9. How often do you find yourself using social media without a specific purpose?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbPurpose1" name="purpose" value="1">
+                                            <label for="rbPurpose1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbPurpose2" name="purpose" value="2">
+                                            <label for="rbPurpose2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbPurpose3" name="purpose" value="3">
+                                            <label for="rbPurpose3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbPurpose4" name="purpose" value="4">
+                                            <label for="rbPurpose4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbPurpose5" name="purpose" value="5">
+                                            <label for="rbPurpose5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">10. How often do you get distracted by social media when you are busy doing something?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistractBusy1" name="distractBusy" value="1">
+                                            <label for="rbDistractBusy1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistractBusy2" name="distractBusy" value="2">
+                                            <label for="rbDistractBusy2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistractBusy3" name="distractBusy" value="3">
+                                            <label for="rbDistractBusy3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistractBusy4" name="distractBusy" value="4">
+                                            <label for="rbDistractBusy4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistractBusy5" name="distractBusy" value="5">
+                                            <label for="rbDistractBusy5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">11. Do you feel restless if you haven’t used social media in a while?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbRestless1" name="restless" value="1">
+                                            <label for="rbRestless1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbRestless2" name="restless" value="2">
+                                            <label for="rbRestless2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbRestless3" name="restless" value="3">
+                                            <label for="rbRestless3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbRestless4" name="restless" value="4">
+                                            <label for="rbRestless4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbRestless5" name="restless" value="5">
+                                            <label for="rbRestless5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">12. How easily distracted are you?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistracted1" name="distracted" value="1">
+                                            <label for="rbDistracted1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistracted2" name="distracted" value="2">
+                                            <label for="rbDistracted2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistracted3" name="distracted" value="3">
+                                            <label for="rbDistracted3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistracted4" name="distracted" value="4">
+                                            <label for="rbDistracted4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDistracted5" name="distracted" value="5">
+                                            <label for="rbDistracted5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">13. How much are you bothered by worries?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbWorry1" name="worries" value="1">
+                                            <label for="rbWorry1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbWorry2" name="worries" value="2">
+                                            <label for="rbWorry2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbWorry3" name="worries" value="3">
+                                            <label for="rbWorry3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbWorry4" name="worries" value="4">
+                                            <label for="rbWorry4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbWorry5" name="worries" value="5">
+                                            <label for="rbWorry5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">14. Do you find it difficult to concentrate on things?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbConcentrate1" name="concentrate" value="1">
+                                            <label for="rbConcentrate1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbConcentrate2" name="concentrate" value="2">
+                                            <label for="rbConcentrate2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbConcentrate3" name="concentrate" value="3">
+                                            <label for="rbConcentrate3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbConcentrate4" name="concentrate" value="4">
+                                            <label for="rbConcentrate4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbConcentrate5" name="concentrate" value="5">
+                                            <label for="rbConcentrate5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">15. How often do you compare yourself to other successful people through the use of social media?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareSuccess1" name="compareSuccess" value="1">
+                                            <label for="rbCompareSuccess1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareSuccess2" name="compareSuccess" value="2">
+                                            <label for="rbCompareSuccess2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareSuccess3" name="compareSuccess" value="3">
+                                            <label for="rbCompareSuccess3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareSuccess4" name="compareSuccess" value="4">
+                                            <label for="rbCompareSuccess4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareSuccess5" name="compareSuccess" value="5">
+                                            <label for="rbCompareSuccess5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">16. Following the previous question, how do you feel about these comparisons, generally speaking?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareFeel1" name="compareFeel" value="1">
+                                            <label for="rbCompareFeel1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareFeel2" name="compareFeel" value="2">
+                                            <label for="rbCompareFeel2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareFeel3" name="compareFeel" value="3">
+                                            <label for="rbCompareFeel3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareFeel4" name="compareFeel" value="4">
+                                            <label for="rbCompareFeel4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbCompareFeel5" name="compareFeel" value="5">
+                                            <label for="rbCompareFeel5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">17. How often do you look to seek validation from features of social media?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbValidation1" name="validation" value="1">
+                                            <label for="rbValidation1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbValidation2" name="validation" value="2">
+                                            <label for="rbValidation2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbValidation3" name="validation" value="3">
+                                            <label for="rbValidation3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbValidation4" name="validation" value="4">
+                                            <label for="rbValidation4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbValidation5" name="validation" value="5">
+                                            <label for="rbValidation5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">18. How often do you feel depressed or down?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDepressed1" name="depressed" value="1">
+                                            <label for="rbDepressed1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDepressed2" name="depressed" value="2">
+                                            <label for="rbDepressed2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDepressed3" name="depressed" value="3">
+                                            <label for="rbDepressed3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDepressed4" name="depressed" value="4">
+                                            <label for="rbDepressed4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbDepressed5" name="depressed" value="5">
+                                            <label for="rbDepressed5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">19. How frequently does your interest in daily activities fluctuate?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbInterest1" name="interest" value="1">
+                                            <label for="rbInterest1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbInterest2" name="interest" value="2">
+                                            <label for="rbInterest2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbInterest3" name="interest" value="3">
+                                            <label for="rbInterest3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbInterest4" name="interest" value="4">
+                                            <label for="rbInterest4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbInterest5" name="interest" value="5">
+                                            <label for="rbInterest5">5</label><br><br><br>
+                                        </div>
+                                    <h1 class="questions">20. How often do you face issues regarding sleep?</h1><BR>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbSleep1" name="sleep" value="1">
+                                            <label for="rbSleep1">1</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbSleep2" name="sleep" value="2">
+                                            <label for="rbSleep2">2</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbSleep3" name="sleep" value="3">
+                                            <label for="rbSleep3">3</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbSleep4" name="sleep" value="4">
+                                            <label for="rbSleep4">4</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="radio" id="rbSleep5" name="sleep" value="5">
+                                            <label for="rbSleep5">5</label><br><br><br>
+                                        </div>
+                                        <input type="hidden" id="surveyCity" name="surveyCity" value="Provo">
+                                        <div class="button-container">
+                                            <button class="survey-button">Submit</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>    
@@ -493,244 +476,26 @@
                 </form>
             </div>
         </section>
-        <!-- Footer-->
+        <!-- Public Footer-->
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-4 text-lg-start">Copyright &copy; Mindful Media Survey 2023</div>
                     <div class="col-lg-4 my-3 my-lg-0">
-                        <!-- Employee Login Link-->
-                        <form action="" method="get">
-                            <button type="submit" id="hiddenLoginLink" hidden></button>
-                        </form>                     
-                        <a class="link-dark text-decoration-none" onclick="document.getElementById('hiddenLoginLink').click();" href="/login" >Employee Login</a>
+                        <!-- Employee Login Link-->               
+                        <a class="link-dark text-decoration-none" href="/login" >Employee Login</a>
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="">Terms of Use</a>
+                        <a class="link-dark text-decoration-none me-3" href="/privacy">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="/terms">Terms of Use</a>
                     </div>
                 </div>
             </div>
         </footer>
-        <!-- Portfolio Modals-->
-        <!-- Portfolio item 1 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Threads
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Illustration
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 2 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/2.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Explore
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Graphic Design
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 3 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/3.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Finish
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Identity
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 4 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/4.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Lines
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Branding
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 5 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/5.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Southwest
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Website Design
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 6 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Window
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Photography
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-info btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>

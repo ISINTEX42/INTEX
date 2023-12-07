@@ -9,7 +9,6 @@
         gtag('js', new Date());
         gtag('config', 'G-45G6K3DR9B');
         </script>
-        <meta id="EJSParams" data-params="<%= params %>"/>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -24,14 +23,13 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <meta id="params" data="<%= params %>" />
         <script>
             function verifyAll(ignore) {
                 var mail = true;
                 var password = true;
                 var match = true;
                 if (ignore !== 'email') {
-                    mail = verifyEmail('<%= params.usernames %>', true);
+                    mail = verifyEmail(true);
                 };
                 if (ignore !== 'password') {
                     password = verifyPassword(true);
@@ -44,7 +42,8 @@
                     document.getElementById("submitButton").disabled = false;
                 };
             };
-            function verifyEmail(usernames, called) {
+            function verifyEmail(called) {
+                let usernames = ('<%= params.usernames %>');
                 let submitButton = document.getElementById("submitButton");
                 let workEmail = document.getElementById("workEmail");
                 let emailHelpInline = document.getElementById("emailHelpInline");
@@ -156,7 +155,7 @@
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Sign Up</h2>
                 </div>
-                    <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN" action="/submitSignUp" method="post">
+                <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN" action="/submitSignUp" method="post">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -176,7 +175,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-md-0">
                                 <!-- Work Email address input-->
-                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail('<%= params.usernames %>', false);" placeholder="Work Email *" required />
+                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail(false);" placeholder="Work Email *" required />
                                 <!-- <div class="invalid-feedback" name="emailError" id="emailError">Email is not valid.</div> -->
                                 <small id="emailHelpInline" class="text-secondary">Please Supply Your Email.</small>
                             </div>
@@ -203,15 +202,12 @@
                 <div class="row align-items-center">
                     <div class="col-lg-4 text-lg-start">Copyright &copy; Mindful Media Survey 2023</div>
                     <div class="col-lg-4 my-3 my-lg-0">
-                        <!-- Employee Login Link-->
-                        <form action="/login" method="get">
-                            <button type="submit" id="hiddenLoginLink" hidden></button>
-                        </form>                     
-                        <a class="link-dark text-decoration-none" onclick="document.getElementById('hiddenLoginLink').click();" href="" >Employee Login</a>
+                        <!-- Employee Login Link-->               
+                        <a class="link-dark text-decoration-none" href="/login" >Employee Login</a>
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="">Terms of Use</a>
+                        <a class="link-dark text-decoration-none me-3" href="/privacy">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="/terms">Terms of Use</a>
                     </div>
                 </div>
             </div>

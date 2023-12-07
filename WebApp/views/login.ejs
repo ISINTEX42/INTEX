@@ -9,7 +9,6 @@
         gtag('js', new Date());
         gtag('config', 'G-45G6K3DR9B');
         </script>
-        <meta id="EJSParams" data-params="<%= params %>"/>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -24,7 +23,6 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <meta id="params" data="<%= params %>" />
         <script>
             function verifyEmail() {
                 let submitButton = document.getElementById("submitButton");
@@ -42,14 +40,11 @@
         </script>
     </head>
     <body id="page-top">
-        <!-- Navigation-->
+        <!-- Public Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
                 <!-- Logo Homepage Link -->
-                <form action="/" method="get">
-                    <button type="submit" id="hiddenIndexLink" hidden></button>
-                </form>
-                <a href="" class="navbar-brand" onclick="document.getElementById('hiddenIndexLink').click();"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
+                <a href="/" class="navbar-brand"><img src="assets/img/logoAllWhite.png" alt="..." /><img src="assets/img/MindfulMedia.png" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -57,14 +52,8 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <!-- Dashboard Link -->
-                        <form action="/tableau" method="get">
-                            <button type="submit" id="hiddenTableauLink" hidden></button>
-                        </form>                     
-                        <li class="nav-item"><a class="nav-link" onclick="document.getElementById('hiddenTableauLink').click();" href="">Explore Survey Results</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/tableau">Explore Survey Results</a></li>
                         <!-- Take Survey Button -->
-                        <form action="/survey" method="get">
-                            <button id="takeSurvey" name="takeSurvey" class="btn btn-info rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#intex">
-                                <span class="d-flex align-items-center">
                                     <i class="bi-chat-text-fill me-2"></i>
                                     <span class="small">Take Survey</span>
                                 </span>
@@ -84,19 +73,19 @@
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Login</h2>
                 </div>
-                    <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN" action="/submitSignUp" method="post">
+                <form class="form-subscribe" id="contactForm" action="/submitLogin" method="post">
                     <div class="row align-items-stretch mb-5">
-                        <div class="col-md-6">
-                        </div>
-                            <!-- change column-->
-                        <div class="col-md-6">
-                            <div class="form-group mb-md-0">
+                        <div class="col-md-6 " >
+                            <div class="form-group mb-md-0 ">
                                 <!-- Work Email address input-->
                                 <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail();" placeholder="Work Email *" required />
-                                <!-- <div class="invalid-feedback" name="emailError" id="emailError">Invalid Email Format</div> -->
-                                <small id="emailHelpInline" class="text-secondary">Please Supply Your Email.</small>
+                                <!-- Don't Have an Account - Sign Up-->
+                                <small class="text-dark">Don't have an account? <a class="link-secondary" href="/signUp" id="signUp" name="signUp" link-info>Sign Up Here</a></small> 
                             </div>
-                            <div class="form-group mb-md-0">
+                        </div>
+                        <!-- change column-->
+                        <div class="col-md-6">
+                            <div class="form-group mb-md-0 ">
                                 <!-- Password input-->
                                 <input class="form-control" id="password" name="password" type="password" placeholder="Create Password *" required />
                             </div>
@@ -112,10 +101,10 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-4 text-lg-start">Copyright &copy; Mindful Media Survey 2023</div>
-                    <div class="col-lg-4 my-3 my-lg-0">
+                    <div class="col-lg-4 my-3 my-lg-0"></div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="">Terms of Use</a>
+                        <a class="link-dark text-decoration-none me-3" href="/privacy">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="/terms">Terms of Use</a>
                     </div>
                 </div>
             </div>

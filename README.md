@@ -1,5 +1,7 @@
 Kimberly Notes:
 
+        redirect to sign up if failed is true then show result
+
         website needs updating across all pages for:
             header
             footer

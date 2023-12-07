@@ -17,8 +17,9 @@ Views (GET):
         /admin/tableau
         /admin/survey
         /admin/data
+        /admin/editSurvey
         /admin/analytics
-        /admin/elevate
+        /admin/employees
         /admin/account
 */
 /*
@@ -59,6 +60,11 @@ module.exports = (app, knex) => {
     {//Public Views
     // Landing
     app.get("/", (req, res) => {
+        console.log(req.protocol + "://" + req.get("host") + req.originalUrl);
+        req.options('/route', function (req, res) {
+            let origin = req.get('origin');
+            console.log(origin);
+        });
         res.render("index");
     });
     // Tableau
@@ -67,6 +73,11 @@ module.exports = (app, knex) => {
     });
     // Take a Survey
     app.get("/survey", (req, res) => {
+        console.log(req.protocol + "://" + req.get("host") + req.originalUrl);
+        req.options('/route', function (req, res) {
+            let origin = req.get('origin');
+            console.log(origin);
+        });
         res.render("survey");
     });
     // Employee Login
@@ -121,8 +132,8 @@ module.exports = (app, knex) => {
         res.render("admin/analytics");
     });
     // Elevate employee accounts
-    app.get("/admin/elevate", (req, res) => {
-        res.render("admin/elevate");
+    app.get("/admin/empmloyees", (req, res) => {
+        res.render("admin/employees");
     });
     // Edit Account Info
     app.get("/admin/account", (req, res) => {
