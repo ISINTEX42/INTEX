@@ -28,11 +28,15 @@
     <body id="page-top">
         <script>
             function editForm() {
+                document.getElementById("editButton").hidden = false;
+                document.getElementById("cancelButton").hidden = false;
+                document.getElementById("editButton").disabled = false;
+                document.getElementById("cancelButton").disabled = false;
                 document.getElementById("employeeFirstName").disabled = false;
                 document.getElementById("employeeLastName").disabled = false;
+
             }
             function cancelForm() {
-                <input type="button" value="Reset Form" onClick="this.form.reset()" />
                 document.getElementById("employeeFirstName").disabled = false;
                 document.getElementById("employeeLastName").disabled = false;
             }
@@ -79,12 +83,13 @@
                             <!-- firstName Editable-->
                             <div class="form-group">
                                 <label id="employeeFirstName">First Name:</label>
-                                <input class="form-control" id="employeeFirstName" name="employeeFirstName" type="text" placeholder="<%= params.first_name %>" required disabled=true/>
+                                <input class="form-control" id="employeeFirstName" name="employeeFirstName" 
+                                type="text" value="<%= params.first_name %>" required disabled />
                             </div>
                             <!-- lastName Editable-->
                             <label id="employeeLastName">Last Name:</label>
                             <div class="form-group">
-                                <input class="form-control" id="employeeLastName" name="employeeLastName"  type="text" placeholder="<%= params.last_name %>" required disabled=true/>
+                                <input class="form-control" id="employeeLastName" name="employeeLastName"  type="text" value="<%= params.last_name %>" required disabled />
                             </div>
                         </div>
                         <!-- change column-->
@@ -92,23 +97,25 @@
                             <!-- City ID CANNOT CHANGE-->
                             <label id="employeeId">City ID:</label>
                             <div class="form-group">
-                                <input class="form-control" id="employeeId" name="employeeId" type="text" placeholder="<%= params.city_id %>" required disabled=true/>
+                                <input class="form-control" id="employeeId" name="employeeId" type="text" value="<%= params.city_id %>" disabled />
                             </div>
                             <!-- Work Email address CANNOT CHANGE-->
                             <label id="employeeId">Username:</label>
                             <div class="form-group mb-md-0">  
-                                <input class="form-control" id="workEmail" name="workEmail" type="email" placeholder="<%= params.username %>" required disabled=true/>
+                                <input class="form-control" id="workEmail" name="workEmail" type="email" value="<%= params.username %>" disabled />
                             </div>
                         </div>
                     <div class="text-lg-end">
-                        <!-- Edit Button-->
-                        <button class="btn btn-info btn-sm text-uppercase "  id="editButton" name="editButton" type="submit" onclick=editForm()>Edit</button>
                         <!-- Update Button-->
-                        <button class="btn btn-info btn-sm text-uppercase " id="updateButton" name="updateButton" type="submit">Update</button>
-                        <!-- Cancel Button-->
-                        <button class="btn btn-info btn-sm text-uppercase " id="cancelButton" name="cancelButton" type="button" value="Reset Form" onClick="this.form.reset()">Cancel</button>
+                        <button class="btn btn-info btn-sm text-uppercase " id="updateButton" name="updateButton" type="submit" hidden disabled >Update</button>
                     </div>
                 </form>
+                <div class="text-lg-end">
+                    <!-- Edit Button-->
+                    <input class="btn btn-info btn-sm text-uppercase "  id="editButton" name="editButton" type="button" value="Edit" onclick="editForm();" />
+                    <!-- Cancel Button-->
+                    <input class="btn btn-info btn-sm text-uppercase " id="cancelButton" name="cancelButton" type="button" value="Cancel" onClick="this.form.reset()" hidden disabled />
+                </div>
 
         <!-- Admin Footer-->
         <footer class="footer py-4">
