@@ -106,6 +106,20 @@ module.exports = (app, knex) => {
             };
         };
     };
+    function encodeASCIIURL(string) {
+        let urlstring = ""
+        for (let i = 0; i < string.length; i++) {
+            urlstring = urlstring + "%" + string.charCodeAt(i);
+        };
+        return urlstring;
+    };
+    function decodeASCIIURL(urlstring) {
+        let string = ""
+        urlstring.split("%").forEach((code) => {
+            string = string + String.fromCharCode(code);
+        });
+        return string;
+    };
     {//Public Views
     // Landing
     app.get("/", (req, res) => {
@@ -176,7 +190,7 @@ module.exports = (app, knex) => {
     // Landing
     app.get("/employeeindex", (req, res) => {
         if (verifyEmployee(req.headers.referer) || req.query.skip || req.query.login) {
-            res.render("employeeindex?username=" + encodeURIComponent(req.query.username));
+            res.render("employeeindex", {"params": {"username": decodeASCIIURL(req.query.username)}});
         } else {
             res.redirect("/login");
         };
@@ -184,7 +198,7 @@ module.exports = (app, knex) => {
     // Tableau
     app.get("/employeetableau", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employeetableau?username=" + encodeURIComponent(req.query.username));
+            res.render("employeetableau", {"params": {"username": decodeASCIIURL(req.query.username)}});
         } else {
             res.redirect("/login");
         };
@@ -192,7 +206,7 @@ module.exports = (app, knex) => {
     // Take a Survey
     app.get("/employeesurvey", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employeesurvey?username=" + encodeURIComponent(req.query.username));
+            res.render("employeesurvey", {"params": {"username": decodeASCIIURL(req.query.username)}});
         } else {
             res.redirect("/login");
         };
@@ -224,7 +238,7 @@ module.exports = (app, knex) => {
     // Edit Account Info
     app.get("/employeeaccount", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employeeaccount?username=" + encodeURIComponent(req.query.username));
+            res.render("employeeaccount", {"params": {"username": decodeASCIIURL(req.query.username)}});
         } else {
             res.redirect("/login");
         };
@@ -240,7 +254,7 @@ module.exports = (app, knex) => {
     // Landing
     app.get("/adminindex", (req, res) => {
         if (verifyAdmin(req.headers.referer) || req.query.skip || req.query.login) {
-            res.render("adminindex?username=" + encodeURIComponent(req.query.username));
+            res.render("adminindex", {"params": {"username": decodeASCIIURL(req.query.username)}});
         } else {
             res.redirect("/login");
         };
@@ -248,7 +262,7 @@ module.exports = (app, knex) => {
     // Tableau
     app.get("/admintableau", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("admintableau?username=" + encodeURIComponent(req.query.username));
+            res.render("admintableau", {"params": {"username": decodeASCIIURL(req.query.username)}});
         } else {
             res.redirect("/login");
         };
@@ -256,7 +270,7 @@ module.exports = (app, knex) => {
     // Take a Survey
     app.get("/adminsurvey", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("adminsurvey?username=" + encodeURIComponent(req.query.username));
+            res.render("adminsurvey", {"params": {"username": decodeASCIIURL(req.query.username)}});
         } else {
             res.redirect("/login");
         };
@@ -288,7 +302,7 @@ module.exports = (app, knex) => {
     // Elevate employee accounts
     app.get("/adminemployees", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("adminemployees?username=" + encodeURIComponent(req.query.username));
+            res.render("adminemployees", {"params": {"username": decodeASCIIURL(req.query.username)}});
         } else {
             res.redirect("/login");
         };
@@ -296,7 +310,7 @@ module.exports = (app, knex) => {
     // Edit Account Info
     app.get("/adminaccount", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("adminaccount?username=" + encodeURIComponent(req.query.username));
+            res.render("adminaccount", {"params": {"username": decodeASCIIURL(req.query.username)}});
         } else {
             res.redirect("/login");
         };
