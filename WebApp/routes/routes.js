@@ -67,8 +67,8 @@ module.exports = (app, knex) => {
         } else {
             let validRequest = false;
             let regexs = [
-                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/admin\/'),
-                new RegExp('http[s]?:\/\/localhost:3000\/admin\/')
+                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/admin'),
+                new RegExp('http[s]?:\/\/localhost:3000\/admin')
             ];
             regexs.forEach((regex) => {
                 if (regex.test(referer)) {
@@ -90,8 +90,8 @@ module.exports = (app, knex) => {
         } else {
             let validRequest = false;
             let regexs = [
-                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/employee\/'),
-                new RegExp('http[s]?:\/\/localhost:3000\/employee\/'),
+                new RegExp('http[s]?:\/\/mindfulmediasurvey\.com\/employee'),
+                new RegExp('http[s]?:\/\/localhost:3000\/employee'),
             ];
             regexs.forEach((regex) => {
                 if (regex.test(referer)) {
