@@ -11,7 +11,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-  --bs-blue: #0d6efd;
+  --bs-blue: rgb(57, 121, 218);
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
@@ -587,11 +587,9 @@ progress {
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 68%;
-  align-content: center;
   align-items: center;
   margin: auto;
   justify-content: center;
-  place-items: center;
   display:grid;
 }
 .notes {
@@ -616,6 +614,7 @@ progress {
   width: 90%; /* Width is set to 90% of its parent element */
   margin: 0; /* Centers the container horizontally */
   max-width: 1000px;
+  margin-left: 5%;
 }
 
 .thankYou {
@@ -632,7 +631,7 @@ progress {
 
 .checkbox-group {
   margin-bottom: 20px;
-  margin-left: 28px;
+  margin-left: 10%;
 }
 
 .integerbox {
@@ -11182,7 +11181,7 @@ header.masthead .masthead-heading {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(255, 200, 0, 0.9);
+  background: rgba(135, 206, 235, 0.8);
   align-items: center;
   justify-content: center;
   opacity: 0;
@@ -11441,14 +11440,20 @@ header.masthead .masthead-heading {
 }
 /* intex - added from the contact form section to create possible tableau dashboard display area*/
 section#dashboard {
-  background-color: #fff;
+  background-color: white;
   background-repeat: no-repeat;
   background-position: center;
 }
+
+
 section#dashboard .section-heading {
   color: #fff;
 }
 
+.section-heading2 {
+  color: black;
+  font-size: 40px;
+}
 /* intex - added from the contact form section to create sign up form  turquoise, purple, yellow green */
 section#signup {
   background-color: #212529;
