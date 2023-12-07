@@ -11,7 +11,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-  --bs-blue: #0d6efd;
+  --bs-blue: rgb(57, 121, 218);
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
@@ -11182,7 +11182,7 @@ header.masthead .masthead-heading {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(255, 200, 0, 0.9);
+  background: rgba(135, 206, 235, 0.8);
   align-items: center;
   justify-content: center;
   opacity: 0;
@@ -11441,15 +11441,20 @@ header.masthead .masthead-heading {
 }
 /* intex - added from the contact form section to create possible tableau dashboard display area*/
 section#dashboard {
-  background-color: #212529;
-  background-image: url("../assets/img/dashboard.png");
+  background-color: white;
   background-repeat: no-repeat;
   background-position: center;
 }
+
+
 section#dashboard .section-heading {
   color: #fff;
 }
 
+.section-heading2 {
+  color: black;
+  font-size: 40px;
+}
 /* intex - added from the contact form section to create sign up form  turquoise, purple, yellow green */
 section#signup {
   background-color: #212529;
