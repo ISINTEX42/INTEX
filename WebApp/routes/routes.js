@@ -105,7 +105,6 @@ module.exports = (app, knex) => {
                 return false;
             };
         };
-        return false;
     };
     {//Public Views
     // Landing
@@ -132,6 +131,38 @@ module.exports = (app, knex) => {
                 usernames.push(username);
             });
             res.render("signUp", {"params": {"usernames": usernames, "failed": req.query.failed, "result": req.query.result}});
+        }).catch(err => {
+            if (err.routine == "parserOpenTable") {
+                knex.schema.createTableIfNotExists("employees", table => {
+                    table.string("username", 60).primary().notNullable();
+                    table.string("hash").notNullable();
+                    table.string("first_name", 30).notNullable();
+                    table.string("last_name", 30).notNullable();
+                    table.string("city_id", 60).notNullable();
+                    table.boolean("is_admin").notNullable();
+                }).then(employees => {
+                    createEmployee(
+                        "admin@provocity.com",
+                        "CHANGEME123!",
+                        "DEFAULT",
+                        "ADMIN",
+                        "CHANGEME123!",
+                        true
+                    );
+                    createEmployee(
+                        "employee@provocity.com",
+                        "CHANGEME456!",
+                        "DEFAULT",
+                        "EMPLOYEE",
+                        "CHANGEME456!",
+                        true
+                    );
+                });
+                res.render("signUp", {"params": 
+                    {"usernames": ["employee@provocity.com", "admin@provocity.com"], 
+                    "failed": req.query.failed, "result": req.query.result
+                }});
+            };
         });
     });
     app.get("/privacy", (req, res) => {
@@ -145,7 +176,7 @@ module.exports = (app, knex) => {
     // Landing
     app.get("/employeeindex", (req, res) => {
         if (verifyEmployee(req.headers.referer) || req.query.skip || req.query.login) {
-            res.render("employeeindex");
+            res.render("employeeindex?username=" + encodeURIComponent(req.query.username));
         } else {
             res.redirect("/login");
         };
@@ -153,7 +184,7 @@ module.exports = (app, knex) => {
     // Tableau
     app.get("/employeetableau", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employeetableau");
+            res.render("employeetableau?username=" + encodeURIComponent(req.query.username));
         } else {
             res.redirect("/login");
         };
@@ -161,7 +192,7 @@ module.exports = (app, knex) => {
     // Take a Survey
     app.get("/employeesurvey", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employeesurvey");
+            res.render("employeesurvey?username=" + encodeURIComponent(req.query.username));
         } else {
             res.redirect("/login");
         };
@@ -188,12 +219,12 @@ module.exports = (app, knex) => {
             });
         } else {
             res.redirect("/login");
-        };
+        };encodeURIComponent
     });
     // Edit Account Info
     app.get("/employeeaccount", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employeeaccount");
+            res.render("employeeaccount?username=" + encodeURIComponent(req.query.username));
         } else {
             res.redirect("/login");
         };
@@ -209,7 +240,7 @@ module.exports = (app, knex) => {
     // Landing
     app.get("/adminindex", (req, res) => {
         if (verifyAdmin(req.headers.referer) || req.query.skip || req.query.login) {
-            res.render("adminindex");
+            res.render("adminindex?username=" + encodeURIComponent(req.query.username));
         } else {
             res.redirect("/login");
         };
@@ -217,7 +248,7 @@ module.exports = (app, knex) => {
     // Tableau
     app.get("/admintableau", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("admintableau");
+            res.render("admintableau?username=" + encodeURIComponent(req.query.username));
         } else {
             res.redirect("/login");
         };
@@ -225,7 +256,7 @@ module.exports = (app, knex) => {
     // Take a Survey
     app.get("/adminsurvey", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("adminsurvey");
+            res.render("adminsurvey?username=" + encodeURIComponent(req.query.username));
         } else {
             res.redirect("/login");
         };
@@ -248,7 +279,7 @@ module.exports = (app, knex) => {
                         rows.push(survey_vals);
                     });
                 };
-                res.render("admindata", {"params": {"columns": columns, "rows": rows}});
+                res.render("admindata?username=" + encodeURIComponent(req.query.username), {"params": {"columns": columns, "rows": rows}});
             });
         } else {
             res.redirect("/login");
@@ -257,7 +288,7 @@ module.exports = (app, knex) => {
     // Elevate employee accounts
     app.get("/adminemployees", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("adminemployees");
+            res.render("adminemployees?username=" + encodeURIComponent(req.query.username));
         } else {
             res.redirect("/login");
         };
@@ -265,7 +296,7 @@ module.exports = (app, knex) => {
     // Edit Account Info
     app.get("/adminaccount", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("adminaccount");
+            res.render("adminaccount?username=" + encodeURIComponent(req.query.username));
         } else {
             res.redirect("/login");
         };
@@ -289,21 +320,31 @@ module.exports = (app, knex) => {
         }).then(employees => {
             knex("employees").then(employees => {
                 if (employees.length == 0) {
-                    let email = "admin@provocity.com";
-                    let password = "CHANGEME123!";
-                    let first_name = "DEFAULT";
-                    let last_name = "ADMIN";
-                    let city_id = "CHANGEME123!";
-                    let is_admin = true;
-                    createEmployee(email, password, first_name, last_name, city_id, is_admin);
+                    createEmployee(
+                        "admin@provocity.com",
+                        "CHANGEME123!",
+                        "DEFAULT",
+                        "ADMIN",
+                        "CHANGEME123!",
+                        true
+                    );
+                    createEmployee(
+                        "employee@provocity.com",
+                        "CHANGEME456!",
+                        "DEFAULT",
+                        "EMPLOYEE",
+                        "CHANGEME456!",
+                        true
+                    );
                 };
-                let email = req.body.workEmail;
-                let password = req.body.password;
-                let first_name = req.body.employeeFirstName;
-                let last_name = req.body.employeeLastName;
-                let city_id = req.body.employeeId;
-                let is_admin = false;
-                createEmployee(email, password, first_name, last_name, city_id, is_admin);
+                createEmployee(
+                    req.body.workEmail,
+                    req.body.password,
+                    req.body.employeeFirstName,
+                    req.body.employeeLastName,
+                    req.body.employeeId,
+                    false
+                );
                 res.redirect("/login");
             });
         });
@@ -318,16 +359,51 @@ module.exports = (app, knex) => {
                 bcrypt.compare(req.body.password, employee[0].hash, (err, same) => {
                     if (same) {
                         if (employee[0].is_admin) {
-                            res.redirect("/adminindex?login=" + true);
+                            res.redirect("/adminindex?login=true&username=" + req.body.workEmail);
                         } else {
-                            res.redirect("/employeeindex?login=" + true);
+                            res.redirect("/employeeindex?login=true&username=" + req.body.workEmail);
                         }
                     } else {
                         res.redirect("/login?failed=true&username=" + req.body.workEmail);
                     }
                 });
             };
+        }).catch(err => {
+            if (err.routine == "parserOpenTable") {
+                knex.schema.createTableIfNotExists("employees", table => {
+                    table.string("username", 60).primary().notNullable();
+                    table.string("hash").notNullable();
+                    table.string("first_name", 30).notNullable();
+                    table.string("last_name", 30).notNullable();
+                    table.string("city_id", 60).notNullable();
+                    table.boolean("is_admin").notNullable();
+                }).then(employees => {
+                    createEmployee(
+                        "admin@provocity.com",
+                        "CHANGEME123!",
+                        "DEFAULT",
+                        "ADMIN",
+                        "CHANGEME123!",
+                        true
+                    );
+                    createEmployee(
+                        "employee@provocity.com",
+                        "CHANGEME456!",
+                        "DEFAULT",
+                        "EMPLOYEE",
+                        "CHANGEME456!",
+                        true
+                    );
+                });
+                res.redirect("/login?failed=" + true);
+            };
         });
+    });
+    app.post("/submitSurvey", (req, res) => {
+
+    });
+    app.post("/editAccount", (req, res) => {
+
     });
     };
     {//API Actions
