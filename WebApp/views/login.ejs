@@ -82,13 +82,13 @@
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Login</h2>
                 </div>
-                    <form class="form-subscribe" id="contactForm"  action="/submitSignUp" method="post">
+                    <form class="form-subscribe" id="contactForm"  action="/submitLogin" method="post">
                     <div class="row align-items-stretch mb-5">
 
                         <div class="col-md-6">
                             <div class="form-group mb-md-0">
                                 <!-- Work Email address input-->
-                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail();" placeholder="Work Email *" required />
+                                <input class="form-control" id="workEmail" name="workEmail" type="email" oninput="verifyEmail();" placeholder="Work Email *" value="<% params.failed ? params.username : "" %>"required />
                                 <!-- <div class="invalid-feedback" name="emailError" id="emailError">Invalid Email Format</div> -->
                                 <small id="emailHelpInline" class="text-secondary">Please Supply Your Email.</small>
                             </div>

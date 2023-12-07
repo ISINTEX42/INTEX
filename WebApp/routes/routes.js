@@ -38,6 +38,9 @@ For each view:
         - Views that require a logged-in user are redirected to login
     - RoutePath should be the desired page's path
 */
+
+const { urlencoded } = require("express");
+
 /*
 For each action:
     - POST for submitting an action
@@ -119,7 +122,7 @@ module.exports = (app, knex) => {
     });
     // Employee Login
     app.get("/login", (req, res) => {
-        res.render("login");
+        res.render("login", {"params": {"failed": req.query.failed || false, "username": req.query.username || ""}});
     });
     // Employee Signup
     app.get("/signUp", (req, res) => {
@@ -128,13 +131,20 @@ module.exports = (app, knex) => {
             results.forEach((username) => {
                 usernames.push(username);
             });
-            res.render("signUp", {"params": {"usernames": usernames}});
+            res.render("signUp", {"params": {"usernames": usernames, "failed": req.query.failed, "result": req.query.result}});
         });
-    });};
+    });
+    app.get("/privacy", (req, res) => {
+        res.send("Privacy page not implemented for Provo City Survey Pages");
+    });
+    app.get("/terms", (req, res) => {
+        res.send("Terms and conditions page not implemented for Provo City Survey Pages");
+    });
+    };
     {//Employee Views
     // Landing
     app.get("/employee/index", (req, res) => {
-        if (verifyEmployee(req.headers.referer) || req.query.skip) {
+        if (verifyEmployee(req.headers.referer) || req.query.skip || req.query.login) {
             res.render("employee/index");
         } else {
             res.redirect("/login");
@@ -159,7 +169,23 @@ module.exports = (app, knex) => {
     // View Raw Data
     app.get("/employee/data", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employee/data");
+            knex("surveyee_info").then(surveys => {
+                let columns = [];
+                let rows = [];
+                if (!surveys.length == 0) {
+                    for (let [key, value] of Object.entries(surveys[0])) {
+                        columns.push(key);
+                    };
+                    surveys.forEach((survey) => {
+                        let survey_vals = [];
+                        for (let [key, value] of Object.entries(survey)) {
+                            survey_vals.push(value);
+                        };
+                        rows.push(survey_vals);
+                    });
+                };
+                res.render("employee/data", {"params": {"columns": columns, "rows": rows}});
+            });
         } else {
             res.redirect("/login");
         };
@@ -171,11 +197,19 @@ module.exports = (app, knex) => {
         } else {
             res.redirect("/login");
         };
-    });};
+    });
+    app.get("/employee/privacy", (req, res) => {
+        res.send("Privacy page not implemented for Provo City Survey Pages");
+    });
+    app.get("/employee/terms", (req, res) => {
+        res.send("Terms and conditions page not implemented for Provo City Survey Pages");
+    });
+    };
     {//Admin Views
     // Landing
     app.get("/admin/index", (req, res) => {
-        if (verifyAdmin(req.headers.referer) || req.query.skip) {
+        console.log(req);
+        if (verifyAdmin(req.headers.referer) || req.query.skip || req.query.login) {
             res.render("admin/index");
         } else {
             res.redirect("/login");
@@ -221,16 +255,8 @@ module.exports = (app, knex) => {
             res.redirect("/login");
         };
     });
-    // View Google Analytics
-    app.get("/admin/analytics", (req, res) => {
-        if (verifyAdmin(req.headers.referer)) {
-            res.render("admin/analytics");
-        } else {
-            res.redirect("/login");
-        };
-    });
     // Elevate employee accounts
-    app.get("/admin/empmloyees", (req, res) => {
+    app.get("/admin/employees", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
             res.render("admin/employees");
         } else {
@@ -244,12 +270,19 @@ module.exports = (app, knex) => {
         } else {
             res.redirect("/login");
         };
-    });};
+    });
+    app.get("/admin/privacy", (req, res) => {
+        res.send("Privacy page not implemented for Provo City Survey Pages");
+    });
+    app.get("/admin/terms", (req, res) => {
+        res.send("Terms and conditions page not implemented for Provo City Survey Pages");
+    });
+    };
     {//CRUD Actions
     app.post("/submitSignUp", (req, res) => {
         knex.schema.createTableIfNotExists("employees", table => {
             table.string("username", 60).primary().notNullable();
-            table.binary("hash").notNullable();
+            table.string("hash").notNullable();
             table.string("first_name", 30).notNullable();
             table.string("last_name", 30).notNullable();
             table.string("city_id", 60).notNullable();
@@ -277,9 +310,25 @@ module.exports = (app, knex) => {
         });
     });
     app.post("/submitLogin", (req, res) => {
-        req.body.workEmail
-        req.body.password
-        res.render("/employee/index")
+        knex("employees").where(
+            {"username": req.body.workEmail}
+        ).then(employee => {
+            if (employee.length == 0) {
+                res.redirect("signUp?failed=" + true + "?result=" + encodeURIComponent("Account does not exist with email: " + req.body.workEmail));
+            } else {
+                bcrypt.compare(req.body.password, employee[0].hash, (err, same) => {
+                    if (same) {
+                        if (employee[0].is_admin) {
+                            res.redirect("/admin/index?login=" + true);
+                        } else {
+                            res.redirect("/employee/index?login=" + true);
+                        }
+                    } else {
+                        res.redirect("/login?failed=" + true + "?username=" + employee[0].username);
+                    }
+                });
+            };
+        });
     });
     };
     {//API Actions
