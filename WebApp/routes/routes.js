@@ -338,4 +338,7 @@ module.exports = (app, knex) => {
     app.get("/testEmployee", (req, res) => {
         res.redirect("/employeeindex?login=" + true);
     });
+    app.get("/test", (req, res) => {
+        res.render("adminaccountdraft", {params: {first_name: "Kimberly", last_name : "Hunter", city_id: 54321, username: "workPlease@provocity.com"}});
+    })
 };
