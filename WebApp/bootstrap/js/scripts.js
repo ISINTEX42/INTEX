@@ -51,4 +51,32 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
 
+    function validateForm() {
+        var errorMessage2 = document.getElementById('errorMessage2');
+        var errorMessage3 = document.getElementById('errorMessage3');
+
+        if (!isRadioButtonSelected('gender')) {
+            errorMessage2.textContent = 'Please select a gender option.';
+            return false; 
+        } else {
+            errorMessage2.textContent = '';
+        }
+
+        if (!isRadioButtonSelected('relationshipStat')) {
+            errorMessage3.textContent = 'Please select an option.';
+            return false; 
+        } else {
+            errorMessage3.textContent = '';
+        }
+
+
+        return true; 
+    }
+    
+    function isRadioButtonSelected(groupName) {
+        var radioButtons = document.getElementsByName(groupName);
+        return Array.from(radioButtons).some(button => button.checked);
+    }
+
+
 });
