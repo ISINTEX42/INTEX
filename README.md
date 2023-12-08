@@ -2,27 +2,6 @@ Kimberly Notes:
 
         redirect to sign up if failed is true then show result
 
-        website needs updating across all pages for:
-            header
-            footer
-
-        signUp page needs id verification in ID input section
-
-
-    Imitation hrefs:
-        hidden form:
-
-        <form action="anything" method="get/post">
-            <button type="submit" id="THISID" hidden />
-        </form>
-
-
-        fake button:
-
-        <a onclick="document.getElementById('THISID').click();" cursor="pointer" />
-
-
-
                                         <%# for (let iCount=0; iCount < params.username.length; iCount++ )
                                         if (params.username[iCount] == document.getElementById("workEmail")) {
                                             sOutput = "Work email invalid"
@@ -39,6 +18,9 @@ Employee/Admin Account routes
 Admin Employees route
 
 OTHER Todo:
-Employee/Admin Account page
-Admin Employees page
+Admin Employees page - extra
 Check/Fix Broken Admin/Employee CSS
+
+KIMBERLY Todo:
+- table css
+- probably still need view for single record from table???
