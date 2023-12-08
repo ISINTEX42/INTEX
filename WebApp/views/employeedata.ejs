@@ -64,21 +64,27 @@
             <div class="container">
                 <div class="text-center">
                     <% if (!params.rows.length == 0) { %>
-                        <table>
-                            <thead>
+                        <table class="table table-info table-hover table-sm" >
+                            <thead class="table">
                                 <tr>
                                     <% for (let i=0; i < params.columns.length; i++) { %>
                                         <th><%= params.columns[i] %></th>
                                         <% }; %>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="table">
                                 <% for (let i = 0; i < params.rows.length; i++) { %>
                                     <tr>
                                         <% for (let j = 0; j < params.columns.length; j++) { %>
-                                            <th><%= params.rows[i][j] %></th>
+                                            <% if (j == 0) { %>
+                                                <th href="">
+                                                    <form action="/employeesinglesurvey?username=<%= params.username %>?surveyee_id=<%= params.rows[i][j] %>">
+                                                        <input class="btn btn-info btn-sm text-uppercase" type="submit" id="surveyee_id" name="surveyee_id" value="<%= params.rows[i][j] %>">
+                                                    </form>
+                                                </th>
+                                            <% } else { %>
+                                                <th><%= params.rows[i][j] %></th>
+                                            <% }; %>
                                         <% }; %>
                                     </tr>
                                 <% }; %>
