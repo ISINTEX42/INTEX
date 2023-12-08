@@ -344,7 +344,7 @@ module.exports = (app, knex) => {
                         rows.push(survey_vals);
                     });
                 };
-                res.render("admindata", {"params": {"columns": columns, "rows": rows, "username": req.query.username, "disabled": "disabled"}});
+                res.render("admindata", {"params": {"columns": columns, "rows": rows, "username": req.query.username, "edit": false}});
             });
         } else {
             res.redirect("/login");
@@ -448,7 +448,7 @@ module.exports = (app, knex) => {
                     fullSurvey[0].fluctuation_frequency,
                     fullSurvey[0].sleep_frequency,
                 ];
-                res.render("admindata", {"params": {"columns": columns, "rows": rows, "username": req.body.username, "disabled": "disabled"}});
+                res.render("admindata", {"params": {"columns": columns, "rows": rows, "username": req.body.username, "edit": true}});
             });
         } else {
             res.redirect("/login");
@@ -502,12 +502,12 @@ module.exports = (app, knex) => {
     });
     app.post("/adminDeleteSurvey", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            knex("surveyees").del().where({"surveyee_id": req.body.surveyee_id});
-            knex("surveyee_info").del().where({"surveyee_id": req.body.surveyee_id});
-            knex("survey_responses").del().where({"surveyee_id": req.body.surveyee_id});
-            knex("survey_platforms").del().where({"surveyee_id": req.body.surveyee_id});
-            knex("survey_affiliations").del().where({"surveyee_id": req.body.surveyee_id});
-            res.redirect("back");
+            knex("surveyees").del().where({"surveyee_id": req.body.surveyee_id}).then(() => {});
+            knex("surveyee_info").del().where({"surveyee_id": req.body.surveyee_id}).then(() => {});
+            knex("survey_responses").del().where({"surveyee_id": req.body.surveyee_id}).then(() => {});
+            knex("surveyee_platforms").del().where({"surveyee_id": req.body.surveyee_id}).then(() => {});
+            knex("surveyee_affiliations").del().where({"surveyee_id": req.body.surveyee_id}).then(() => {});
+            res.redirect("/admindata");
         } else {
             res.redirect("/login");
         }
