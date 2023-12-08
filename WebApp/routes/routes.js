@@ -423,7 +423,6 @@ module.exports = (app, knex) => {
     app.post("/submitSurvey", (req, res) => {
         knex("surveyees").max("surveyee_id", {as: "surveyee_id"}).first().then(id => {
             let insertID = parseInt(id.surveyee_id) + 1;
-            console.log(insertID);
             let age = Math.round(req.body.age);
             let now = new Date();
             knex.insert(
@@ -435,7 +434,6 @@ module.exports = (app, knex) => {
                 },
                 ['surveyee_id']
             ).into("surveyees").then(id => {
-                console.log(id)
                 let time;
                 switch (req.body.time) {
                     case "Less than an Hour":
@@ -514,7 +512,6 @@ module.exports = (app, knex) => {
     app.post("/adminSubmitSurvey", (req, res) => {
         knex("surveyees").max("surveyee_id", {as: "surveyee_id"}).first().then(id => {
             let insertID = parseInt(id.surveyee_id) + 1;
-            console.log(insertID);
             let age = Math.round(req.body.age);
             let now = new Date();
             knex.insert(
@@ -526,7 +523,6 @@ module.exports = (app, knex) => {
                 },
                 ['surveyee_id']
             ).into("surveyees").then(id => {
-                console.log(id)
                 let time;
                 switch (req.body.time) {
                     case "Less than an Hour":
@@ -605,7 +601,6 @@ module.exports = (app, knex) => {
     app.post("/employeeSubmitSurvey", (req, res) => {
         knex("surveyees").max("surveyee_id", {as: "surveyee_id"}).first().then(id => {
             let insertID = parseInt(id.surveyee_id) + 1;
-            console.log(insertID);
             let age = Math.round(req.body.age);
             let now = new Date();
             knex.insert(
@@ -617,7 +612,6 @@ module.exports = (app, knex) => {
                 },
                 ['surveyee_id']
             ).into("surveyees").then(id => {
-                console.log(id)
                 let time;
                 switch (req.body.time) {
                     case "Less than an Hour":
@@ -717,7 +711,5 @@ module.exports = (app, knex) => {
     app.get("/help", (req, res) => {
         res.render("help")
     });
-
     };
-    console.log(new Date().toISOString())
 };

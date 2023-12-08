@@ -80,16 +80,6 @@
                                         <% for (let j = 0; j < params.columns.length; j++) { %>
                                             <th><%= params.rows[i][j] %></th>
                                         <% }; %>
-                                        <th>
-                                            <form action="/employeeeditSurvey/<%= params.rows[i][0] %>?username=<%= params.username %>" method="GET">
-                                                <input type="submit" value="Edit" id="editSurvey<%= params.rows[i][0] %>" name="editSurvey<%= params.rows[i][0] %>">
-                                            </form>
-                                        </th>
-                                        <th>
-                                            <form action="/employeedeleteSurvey/<%= params.rows[i][0] %>?username=<%= params.username %>" method="POST">
-                                                <input type="submit" value="Delete" id="deleteSurvey<%= params.rows[i][0] %>" name="deleteSurvey<%= params.rows[i][0] %>">
-                                            </form>
-                                        </th>
                                     </tr>
                                 <% }; %>
                             </tbody>
