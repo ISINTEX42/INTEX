@@ -717,4 +717,5 @@ module.exports = (app, knex) => {
         res.render("help")
     });
     };
+    console.log(new Date().toISOString())
 };
