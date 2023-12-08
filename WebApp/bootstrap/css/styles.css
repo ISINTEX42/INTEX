@@ -11588,3 +11588,7 @@ section#contact form#contactForm :-ms-input-placeholder {
   cursor: pointer;
   border-radius: 10px;
 }
+
+.error-message {
+  color: red;
+}
