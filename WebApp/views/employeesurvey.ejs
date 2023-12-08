@@ -60,7 +60,7 @@
                     <h2 class="section-heading text-uppercase">Please Take the Survey</h2>
                     <h3 class="section-subheading text-muted">Social Media Usage and Mental Health</h3>
                 </div>
-                <form id="contactForm" action="/employeeSubmitSurvey?username=<%= params.username %>">
+                <form id="contactForm" action="/employeeSubmitSurvey" method="POST">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -473,6 +473,7 @@
                                                 <button class="survey-button">Submit</button>
                                             </div>
                                         </div>
+                                        <input type="text" id="username" name="username" value="<%= params.username %>" hidden>
                                     </div>
                                 </div>
                             </div>    
