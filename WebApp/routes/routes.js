@@ -899,5 +899,10 @@ module.exports = (app, knex) => {
     app.get("/help", (req, res) => {
         res.render("help")
     });
+
+
+    app.get("/help", (req, res) => {
+        res.render("help")
+    });
     };
 };
