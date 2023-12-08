@@ -106,6 +106,9 @@ module.exports = (app, knex) => {
             };
         };
     };
+    function unique(value, index, array) {
+        return array.indexOf(value) === index;
+      }
     {//Public Views
     // Landing
     app.get("/", (req, res) => {
@@ -158,7 +161,7 @@ module.exports = (app, knex) => {
                         "DEFAULT",
                         "EMPLOYEE",
                         "CHANGEME456!",
-                        true
+                        false
                     );
                 });
                 res.render("signUp", {"params": 
@@ -203,7 +206,7 @@ module.exports = (app, knex) => {
     // View Raw Data
     app.get("/employeedata", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            knex("surveyee_info").then(surveys => {
+            knex("surveyee_info").orderBy("surveyee_id").then(surveys => {
                 let columns = [];
                 let rows = [];
                 if (!surveys.length == 0) {
@@ -232,9 +235,9 @@ module.exports = (app, knex) => {
             }).then(employee => {
                 res.render("adminaccount", {"params": 
                 {"username": req.query.username, 
-                "city_id": employee.city_id,
-                "first_name": employee.first_name,
-                "last_name": employee.last_name
+                "city_id": employee[0].city_id,
+                "first_name": employee[0].first_name,
+                "last_name": employee[0].last_name
             }});
             });
         } else {
@@ -246,6 +249,56 @@ module.exports = (app, knex) => {
     });
     app.get("/employeeterms", (req, res) => {
         res.send("Terms and conditions page not implemented for Provo City Survey Pages");
+    });
+    app.get("/employeesinglesurvey", (req, res) => {
+        if (verifyEmployee(req.headers.referer)) {
+            knex("survey_responses").where({"survey_responses.surveyee_id": req.query.surveyee_id})
+            .innerJoin("surveyees", "survey_responses.surveyee_id", "=", "surveyees.surveyee_id")
+            .innerJoin("surveyee_info", "surveyees.surveyee_id", "=", "surveyee_info.surveyee_id")
+            .innerJoin("surveyee_affiliations", "survey_responses.surveyee_id", "=", "surveyee_affiliations.surveyee_id")
+            .innerJoin("surveyee_platforms", "survey_responses.surveyee_id", "=", "surveyee_platforms.surveyee_id")
+            .select(
+                "surveyee_info.*",
+                "surveyee_affiliations.affiliation",
+                "surveyee_platforms.platform"
+            )
+            .then(fullSurvey => {
+                let affiliations = [];
+                fullSurvey.forEach((survey) => {
+                    affiliations.push(survey.affiliation);
+                });
+                affiliations = affiliations.filter(unique);
+                let platforms = [];
+                fullSurvey.forEach((survey) => {
+                    platforms.push(survey.platform);
+                });
+                platforms = platforms.filter(unique);
+                res.send({"data": {
+                    "survey_id": fullSurvey[0].surveyee_id,
+                    "survey_city": fullSurvey[0].survey_city,
+                    "affiliations": affiliations,
+                    "platforms": platforms,
+                    "relationship_status": fullSurvey[0].relationship_status,
+                    "occupation_status": fullSurvey[0].occupation_status,
+                    "is_media_user": fullSurvey[0].is_media_user,
+                    "media_usage": fullSurvey[0].media_usage,
+                    "purpose_frequency": fullSurvey[0].purpose_frequency,
+                    "distraction_frequency": fullSurvey[0].distraction_frequency,
+                    "restless_amount": fullSurvey[0].restless_amount,
+                    "distraction_amount": fullSurvey[0].distraction_amount,
+                    "worried_amount": fullSurvey[0].worried_amount,
+                    "concentration_amount": fullSurvey[0].concentration_amount,
+                    "comparison_frequency": fullSurvey[0].comparison_frequency,
+                    "comparison_amount": fullSurvey[0].comparison_amount,
+                    "validation_frequency": fullSurvey[0].validation_frequency,
+                    "depression_frequency": fullSurvey[0].depression_frequency,
+                    "fluctuation_frequency": fullSurvey[0].fluctuation_frequency,
+                    "sleep_frequency": fullSurvey[0].sleep_frequency,
+                }});
+            });
+        } else {
+            res.redirect("/login");
+        }
     });
     };
     {//Admin Views
@@ -276,7 +329,7 @@ module.exports = (app, knex) => {
     // View/Edit Raw Data
     app.get("/admindata", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            knex("surveyee_info").then(surveys => {
+            knex("surveyee_info").orderBy("surveyee_id").then(surveys => {
                 let columns = [];
                 let rows = [];
                 if (!surveys.length == 0) {
@@ -291,7 +344,7 @@ module.exports = (app, knex) => {
                         rows.push(survey_vals);
                     });
                 };
-                res.render("admindata", {"params": {"columns": columns, "rows": rows, "username": req.query.username}});
+                res.render("admindata", {"params": {"columns": columns, "rows": rows, "username": req.query.username, "disabled": "disabled"}});
             });
         } else {
             res.redirect("/login");
@@ -313,9 +366,9 @@ module.exports = (app, knex) => {
             }).then(employee => {
                 res.render("adminaccount", {"params": 
                 {"username": req.query.username, 
-                "city_id": employee.city_id,
-                "first_name": employee.first_name,
-                "last_name": employee.last_name
+                "city_id": employee[0].city_id,
+                "first_name": employee[0].first_name,
+                "last_name": employee[0].last_name
             }});
             });
         } else {
@@ -327,6 +380,137 @@ module.exports = (app, knex) => {
     });
     app.get("/adminterms", (req, res) => {
         res.send("Terms and conditions page not implemented for Provo City Survey Pages");
+    });
+    app.get("/admineditsurvey", (req, res) => {
+        if (verifyAdmin(req.headers.referer)) {
+            knex("survey_responses").where({"survey_responses.surveyee_id": req.query.surveyee_id})
+            .innerJoin("surveyees", "survey_responses.surveyee_id", "=", "surveyees.surveyee_id")
+            .innerJoin("surveyee_info", "surveyees.surveyee_id", "=", "surveyee_info.surveyee_id")
+            .innerJoin("surveyee_affiliations", "survey_responses.surveyee_id", "=", "surveyee_affiliations.surveyee_id")
+            .innerJoin("surveyee_platforms", "survey_responses.surveyee_id", "=", "surveyee_platforms.surveyee_id")
+            .select(
+                "surveyee_info.*",
+                "surveyee_affiliations.affiliation",
+                "surveyee_platforms.platform"
+            ).orderBy("survey_responses.surveyee_id")
+            .then(fullSurvey => {
+                let affiliations = [];
+                fullSurvey.forEach((survey) => {
+                    affiliations.push(survey.affiliation);
+                });
+                affiliations = affiliations.filter(unique);
+                let platforms = [];
+                fullSurvey.forEach((survey) => {
+                    platforms.push(survey.platform);
+                });
+                platforms = platforms.filter(unique);
+                let columns = [
+                    "survey_id",
+                    "survey_city",
+                    "affiliations",
+                    "platforms",
+                    "relationship_status",
+                    "occupation_status",
+                    "is_media_user",
+                    "media_usage",
+                    "purpose_frequency",
+                    "distraction_frequency",
+                    "restless_amount",
+                    "distraction_amount",
+                    "worried_amount",
+                    "concentration_amount",
+                    "comparison_frequency",
+                    "comparison_amount",
+                    "validation_frequency",
+                    "depression_frequency",
+                    "fluctuation_frequency",
+                    "sleep_frequency"
+                ];
+                let rows = [
+                    fullSurvey[0].surveyee_id,
+                    fullSurvey[0].survey_city,
+                    affiliations,
+                    platforms,
+                    fullSurvey[0].relationship_status,
+                    fullSurvey[0].occupation_status,
+                    fullSurvey[0].is_media_user,
+                    fullSurvey[0].media_usage,
+                    fullSurvey[0].purpose_frequency,
+                    fullSurvey[0].distraction_frequency,
+                    fullSurvey[0].restless_amount,
+                    fullSurvey[0].distraction_amount,
+                    fullSurvey[0].worried_amount,
+                    fullSurvey[0].concentration_amount,
+                    fullSurvey[0].comparison_frequency,
+                    fullSurvey[0].comparison_amount,
+                    fullSurvey[0].validation_frequency,
+                    fullSurvey[0].depression_frequency,
+                    fullSurvey[0].fluctuation_frequency,
+                    fullSurvey[0].sleep_frequency,
+                ];
+                res.render("admindata", {"params": {"columns": columns, "rows": rows, "username": req.body.username, "disabled": "disabled"}});
+            });
+        } else {
+            res.redirect("/login");
+        }
+    });
+    app.get("/adminsinglesurvey", (req, res) => {
+        knex("survey_responses").where({"survey_responses.surveyee_id": req.query.surveyee_id})
+            .innerJoin("surveyees", "survey_responses.surveyee_id", "=", "surveyees.surveyee_id")
+            .innerJoin("surveyee_info", "surveyees.surveyee_id", "=", "surveyee_info.surveyee_id")
+            .innerJoin("surveyee_affiliations", "survey_responses.surveyee_id", "=", "surveyee_affiliations.surveyee_id")
+            .innerJoin("surveyee_platforms", "survey_responses.surveyee_id", "=", "surveyee_platforms.surveyee_id")
+            .select(
+                "surveyee_info.*",
+                "surveyee_affiliations.affiliation",
+                "surveyee_platforms.platform"
+            ).orderBy("survey_responses.surveyee_id")
+            .then(fullSurvey => {
+                let affiliations = [];
+                fullSurvey.forEach((survey) => {
+                    affiliations.push(survey.affiliation);
+                });
+                affiliations = affiliations.filter(unique);
+                let platforms = [];
+                fullSurvey.forEach((survey) => {
+                    platforms.push(survey.platform);
+                });
+                platforms = platforms.filter(unique);
+                res.send({"data": {
+                    "survey_id": fullSurvey[0].surveyee_id,
+                    "survey_city": fullSurvey[0].survey_city,
+                    "affiliations": affiliations,
+                    "platforms": platforms,
+                    "relationship_status": fullSurvey[0].relationship_status,
+                    "occupation_status": fullSurvey[0].occupation_status,
+                    "is_media_user": fullSurvey[0].is_media_user,
+                    "media_usage": fullSurvey[0].media_usage,
+                    "purpose_frequency": fullSurvey[0].purpose_frequency,
+                    "distraction_frequency": fullSurvey[0].distraction_frequency,
+                    "restless_amount": fullSurvey[0].restless_amount,
+                    "distraction_amount": fullSurvey[0].distraction_amount,
+                    "worried_amount": fullSurvey[0].worried_amount,
+                    "concentration_amount": fullSurvey[0].concentration_amount,
+                    "comparison_frequency": fullSurvey[0].comparison_frequency,
+                    "comparison_amount": fullSurvey[0].comparison_amount,
+                    "validation_frequency": fullSurvey[0].validation_frequency,
+                    "depression_frequency": fullSurvey[0].depression_frequency,
+                    "fluctuation_frequency": fullSurvey[0].fluctuation_frequency,
+                    "sleep_frequency": fullSurvey[0].sleep_frequency,
+                }});
+            });
+    });
+    app.post("/adminDeleteSurvey", (req, res) => {
+        if (verifyAdmin(req.headers.referer)) {
+            knex("surveyees").del().where({"surveyee_id": req.body.surveyee_id});
+            knex("surveyee_info").del().where({"surveyee_id": req.body.surveyee_id});
+            knex("survey_responses").del().where({"surveyee_id": req.body.surveyee_id});
+            knex("survey_platforms").del().where({"surveyee_id": req.body.surveyee_id});
+            knex("survey_affiliations").del().where({"surveyee_id": req.body.surveyee_id});
+            res.redirect("back");
+        } else {
+            res.redirect("/login");
+        }
     });
     };
     {//DB Post Actions
@@ -355,7 +539,7 @@ module.exports = (app, knex) => {
                         "DEFAULT",
                         "EMPLOYEE",
                         "CHANGEME456!",
-                        true
+                        false
                     );
                 };
                 createEmployee(
@@ -413,7 +597,7 @@ module.exports = (app, knex) => {
                         "DEFAULT",
                         "EMPLOYEE",
                         "CHANGEME456!",
-                        true
+                        false
                     );
                 });
                 res.redirect("/login?failed=" + true);
@@ -421,253 +605,270 @@ module.exports = (app, knex) => {
         });
     });
     app.post("/submitSurvey", (req, res) => {
-        let age = Math.round(req.body.age);
-        knex.insert(
-            {
-                survey_timestamp: knex.fn.now(),
-                age: age,
-                gender: req.body.gender
-            },
-            ['surveyee_id']
-        ).into("surveyees").then(id => {
-            let time;
-            switch (req.body.time) {
-                case "Less than an Hour":
-                    time = "<1";
-                    break;
-                case "Between 1 and 2 hours":
-                    time = "1-2";
-                    break;
-                case "Between 2 and 3 hours":
-                    time = "2-3";
-                    break;
-                case "Between 3 and 4 hours":
-                    time = "3-4";
-                    break;
-                case "Between 4 and 5 hours":
-                    time = "4-5";
-                    break;
-                default:
-                    time = "5<";
-            };
+        knex("surveyees").max("surveyee_id", {as: "surveyee_id"}).first().then(id => {
+            let insertID = parseInt(id.surveyee_id) + 1;
+            let age = Math.round(req.body.age);
+            let now = new Date();
             knex.insert(
                 {
-                    surveyee_id: id,
-                    relationship_status: req.body.relationshipStat,
-                    occupation_status: req.body.occupation,
-                    is_media_user: req.body.socialMedia === "true",
-                    media_usage: time,
-                    purpose_frequency: req.body.purpose,
-                    distration_frequency: req.body.distractBusy,
-                    restless_amount: req.body.restless,
-                    distraction_amount: req.body.distracted,
-                    worried_amount: req.body.worries,
-                    concentration_amount: req.body.concentrate,
-                    comparison_frequency: req.body.compareSuccess,
-                    comparison_amount: req.body.compareFeel,
-                    validation_frequency: req.body.validation,
-                    depression_frequency: req.body.depressed,
-                    fluctuation_frequency: req.body.interest,
-                    sleep_frequency: req.body.sleep,
-                    survey_city: req.body.surveyCity
-                }
-            ).into("surveyee_info");
-            req.body.affiliation.forEach((affiliation, index) => {
+                    surveyee_id: insertID,
+                    survey_timestamp: now.toISOString(),
+                    age: age,
+                    gender: req.body.gender
+                },
+                ['surveyee_id']
+            ).into("surveyees").then(id => {
+                let time;
+                switch (req.body.time) {
+                    case "Less than an Hour":
+                        time = "<1";
+                        break;
+                    case "Between 1 and 2 hours":
+                        time = "1-2";
+                        break;
+                    case "Between 2 and 3 hours":
+                        time = "2-3";
+                        break;
+                    case "Between 3 and 4 hours":
+                        time = "3-4";
+                        break;
+                    case "Between 4 and 5 hours":
+                        time = "4-5";
+                        break;
+                    default:
+                        time = "5<";
+                };
                 knex.insert(
                     {
                         surveyee_id: id,
-                        affiliation_num: index,
-                        affiliation: affiliation
+                        relationship_status: req.body.relationshipStat,
+                        occupation_status: req.body.occupation,
+                        is_media_user: req.body.socialMedia === "true",
+                        media_usage: time,
+                        purpose_frequency: req.body.purpose,
+                        distration_frequency: req.body.distractBusy,
+                        restless_amount: req.body.restless,
+                        distraction_amount: req.body.distracted,
+                        worried_amount: req.body.worries,
+                        concentration_amount: req.body.concentrate,
+                        comparison_frequency: req.body.compareSuccess,
+                        comparison_amount: req.body.compareFeel,
+                        validation_frequency: req.body.validation,
+                        depression_frequency: req.body.depressed,
+                        fluctuation_frequency: req.body.interest,
+                        sleep_frequency: req.body.sleep,
+                        survey_city: req.body.surveyCity
                     }
-                ).into("surveyee_affiliations");
-            });
-            req.body.platforms.forEach((platform, index) => {
-                knex.insert(
-                    {
-                        surveyee_id: id,
-                        platform_num: index,
-                        platform: platform
-                    }
-                ).into("surveyee_platforms");
-            });
-            req.body.platforms.forEach((platform, plat_index) => {
-                req.body.affiliation.forEach((affiliation, aff_index) => {
+                ).into("surveyee_info");
+                req.body.affiliation.forEach((affiliation, index) => {
                     knex.insert(
                         {
                             surveyee_id: id,
-                            affiliation_num: aff_index,
-                            platform_num: plat_index
+                            affiliation_num: index,
+                            affiliation: affiliation
                         }
-                    ).into("survey_responses");
+                    ).into("surveyee_affiliations");
                 });
+                req.body.platforms.forEach((platform, index) => {
+                    knex.insert(
+                        {
+                            surveyee_id: id,
+                            platform_num: index,
+                            platform: platform
+                        }
+                    ).into("surveyee_platforms");
+                });
+                req.body.platforms.forEach((platform, plat_index) => {
+                    req.body.affiliation.forEach((affiliation, aff_index) => {
+                        knex.insert(
+                            {
+                                surveyee_id: id,
+                                affiliation_num: aff_index,
+                                platform_num: plat_index
+                            }
+                        ).into("survey_responses");
+                    });
+                });
+                res.redirect("/index");
             });
-            res.render("/index");
         });
     });
     app.post("/adminSubmitSurvey", (req, res) => {
-        knex.insert(
-            {
-                survey_timestamp: knex.fn.now(),
-                age: Math.round(req.body.age),
-                gender: req.body.gender
-            },
-            ['surveyee_id']
-        ).into("surveyees").then(id => {
-            let time;
-            switch (req.body.time) {
-                case "Less than an Hour":
-                    time = "<1";
-                    break;
-                case "Between 1 and 2 hours":
-                    time = "1-2";
-                    break;
-                case "Between 2 and 3 hours":
-                    time = "2-3";
-                    break;
-                case "Between 3 and 4 hours":
-                    time = "3-4";
-                    break;
-                case "Between 4 and 5 hours":
-                    time = "4-5";
-                    break;
-                default:
-                    time = "5<";
-            };
+        knex("surveyees").max("surveyee_id", {as: "surveyee_id"}).first().then(id => {
+            let insertID = parseInt(id.surveyee_id) + 1;
+            let age = Math.round(req.body.age);
+            let now = new Date();
             knex.insert(
                 {
-                    surveyee_id: id,
-                    relationship_status: req.body.relationshipStat,
-                    occupation_status: req.body.occupation,
-                    is_media_user: req.body.socialMedia === "true",
-                    media_usage: time,
-                    purpose_frequency: req.body.purpose,
-                    distration_frequency: req.body.distractBusy,
-                    restless_amount: req.body.restless,
-                    distraction_amount: req.body.distracted,
-                    worried_amount: req.body.worries,
-                    concentration_amount: req.body.concentrate,
-                    comparison_frequency: req.body.compareSuccess,
-                    comparison_amount: req.body.compareFeel,
-                    validation_frequency: req.body.validation,
-                    depression_frequency: req.body.depressed,
-                    fluctuation_frequency: req.body.interest,
-                    sleep_frequency: req.body.sleep,
-                    survey_city: req.body.surveyCity
-                }
-            ).into("surveyee_info");
-            req.body.affiliation.forEach((affiliation, index) => {
+                    surveyee_id: insertID,
+                    survey_timestamp: now.toISOString(),
+                    age: age,
+                    gender: req.body.gender
+                },
+                ['surveyee_id']
+            ).into("surveyees").then(id => {
+                let time;
+                switch (req.body.time) {
+                    case "Less than an Hour":
+                        time = "<1";
+                        break;
+                    case "Between 1 and 2 hours":
+                        time = "1-2";
+                        break;
+                    case "Between 2 and 3 hours":
+                        time = "2-3";
+                        break;
+                    case "Between 3 and 4 hours":
+                        time = "3-4";
+                        break;
+                    case "Between 4 and 5 hours":
+                        time = "4-5";
+                        break;
+                    default:
+                        time = "5<";
+                };
                 knex.insert(
                     {
                         surveyee_id: id,
-                        affiliation_num: index,
-                        affiliation: affiliation
+                        relationship_status: req.body.relationshipStat,
+                        occupation_status: req.body.occupation,
+                        is_media_user: req.body.socialMedia === "true",
+                        media_usage: time,
+                        purpose_frequency: req.body.purpose,
+                        distration_frequency: req.body.distractBusy,
+                        restless_amount: req.body.restless,
+                        distraction_amount: req.body.distracted,
+                        worried_amount: req.body.worries,
+                        concentration_amount: req.body.concentrate,
+                        comparison_frequency: req.body.compareSuccess,
+                        comparison_amount: req.body.compareFeel,
+                        validation_frequency: req.body.validation,
+                        depression_frequency: req.body.depressed,
+                        fluctuation_frequency: req.body.interest,
+                        sleep_frequency: req.body.sleep,
+                        survey_city: req.body.surveyCity
                     }
-                ).into("surveyee_affiliations");
-            });
-            req.body.platforms.forEach((platform, index) => {
-                knex.insert(
-                    {
-                        surveyee_id: id,
-                        platform_num: index,
-                        platform: platform
-                    }
-                ).into("surveyee_platforms");
-            });
-            req.body.platforms.forEach((platform, plat_index) => {
-                req.body.affiliation.forEach((affiliation, aff_index) => {
+                ).into("surveyee_info");
+                req.body.affiliation.forEach((affiliation, index) => {
                     knex.insert(
                         {
                             surveyee_id: id,
-                            affiliation_num: aff_index,
-                            platform_num: plat_index
+                            affiliation_num: index,
+                            affiliation: affiliation
                         }
-                    ).into("survey_responses");
+                    ).into("surveyee_affiliations");
                 });
+                req.body.platforms.forEach((platform, index) => {
+                    knex.insert(
+                        {
+                            surveyee_id: id,
+                            platform_num: index,
+                            platform: platform
+                        }
+                    ).into("surveyee_platforms");
+                });
+                req.body.platforms.forEach((platform, plat_index) => {
+                    req.body.affiliation.forEach((affiliation, aff_index) => {
+                        knex.insert(
+                            {
+                                surveyee_id: id,
+                                affiliation_num: aff_index,
+                                platform_num: plat_index
+                            }
+                        ).into("survey_responses");
+                    });
+                });
+                res.redirect("/adminindex");
             });
-            res.render("/adminindex", {"params": {"username": req.body.username}});
         });
     });
     app.post("/employeeSubmitSurvey", (req, res) => {
-        knex.insert(
-            {
-                survey_timestamp: knex.fn.now(),
-                age: Math.round(req.body.age),
-                gender: req.body.gender
-            },
-            ['surveyee_id']
-        ).into("surveyees").then(id => {
-            let time;
-            switch (req.body.time) {
-                case "Less than an Hour":
-                    time = "<1";
-                    break;
-                case "Between 1 and 2 hours":
-                    time = "1-2";
-                    break;
-                case "Between 2 and 3 hours":
-                    time = "2-3";
-                    break;
-                case "Between 3 and 4 hours":
-                    time = "3-4";
-                    break;
-                case "Between 4 and 5 hours":
-                    time = "4-5";
-                    break;
-                default:
-                    time = "5<";
-            };
+        knex("surveyees").max("surveyee_id", {as: "surveyee_id"}).first().then(id => {
+            let insertID = parseInt(id.surveyee_id) + 1;
+            let age = Math.round(req.body.age);
+            let now = new Date();
             knex.insert(
                 {
-                    surveyee_id: id,
-                    relationship_status: req.body.relationshipStat,
-                    occupation_status: req.body.occupation,
-                    is_media_user: req.body.socialMedia === "true",
-                    media_usage: time,
-                    purpose_frequency: req.body.purpose,
-                    distration_frequency: req.body.distractBusy,
-                    restless_amount: req.body.restless,
-                    distraction_amount: req.body.distracted,
-                    worried_amount: req.body.worries,
-                    concentration_amount: req.body.concentrate,
-                    comparison_frequency: req.body.compareSuccess,
-                    comparison_amount: req.body.compareFeel,
-                    validation_frequency: req.body.validation,
-                    depression_frequency: req.body.depressed,
-                    fluctuation_frequency: req.body.interest,
-                    sleep_frequency: req.body.sleep,
-                    survey_city: req.body.surveyCity
-                }
-            ).into("surveyee_info");
-            req.body.affiliation.forEach((affiliation, index) => {
+                    surveyee_id: insertID,
+                    survey_timestamp: now.toISOString(),
+                    age: age,
+                    gender: req.body.gender
+                },
+                ['surveyee_id']
+            ).into("surveyees").then(id => {
+                let time;
+                switch (req.body.time) {
+                    case "Less than an Hour":
+                        time = "<1";
+                        break;
+                    case "Between 1 and 2 hours":
+                        time = "1-2";
+                        break;
+                    case "Between 2 and 3 hours":
+                        time = "2-3";
+                        break;
+                    case "Between 3 and 4 hours":
+                        time = "3-4";
+                        break;
+                    case "Between 4 and 5 hours":
+                        time = "4-5";
+                        break;
+                    default:
+                        time = "5<";
+                };
                 knex.insert(
                     {
                         surveyee_id: id,
-                        affiliation_num: index,
-                        affiliation: affiliation
+                        relationship_status: req.body.relationshipStat,
+                        occupation_status: req.body.occupation,
+                        is_media_user: req.body.socialMedia === "true",
+                        media_usage: time,
+                        purpose_frequency: req.body.purpose,
+                        distration_frequency: req.body.distractBusy,
+                        restless_amount: req.body.restless,
+                        distraction_amount: req.body.distracted,
+                        worried_amount: req.body.worries,
+                        concentration_amount: req.body.concentrate,
+                        comparison_frequency: req.body.compareSuccess,
+                        comparison_amount: req.body.compareFeel,
+                        validation_frequency: req.body.validation,
+                        depression_frequency: req.body.depressed,
+                        fluctuation_frequency: req.body.interest,
+                        sleep_frequency: req.body.sleep,
+                        survey_city: req.body.surveyCity
                     }
-                ).into("surveyee_affiliations");
-            });
-            req.body.platforms.forEach((platform, index) => {
-                knex.insert(
-                    {
-                        surveyee_id: id,
-                        platform_num: index,
-                        platform: platform
-                    }
-                ).into("surveyee_platforms");
-            });
-            req.body.platforms.forEach((platform, plat_index) => {
-                req.body.affiliation.forEach((affiliation, aff_index) => {
+                ).into("surveyee_info");
+                req.body.affiliation.forEach((affiliation, index) => {
                     knex.insert(
                         {
                             surveyee_id: id,
-                            affiliation_num: aff_index,
-                            platform_num: plat_index
+                            affiliation_num: index,
+                            affiliation: affiliation
                         }
-                    ).into("survey_responses");
+                    ).into("surveyee_affiliations");
                 });
+                req.body.platforms.forEach((platform, index) => {
+                    knex.insert(
+                        {
+                            surveyee_id: id,
+                            platform_num: index,
+                            platform: platform
+                        }
+                    ).into("surveyee_platforms");
+                });
+                req.body.platforms.forEach((platform, plat_index) => {
+                    req.body.affiliation.forEach((affiliation, aff_index) => {
+                        knex.insert(
+                            {
+                                surveyee_id: id,
+                                affiliation_num: aff_index,
+                                platform_num: plat_index
+                            }
+                        ).into("survey_responses");
+                    });
+                });
+                res.redirect("/employeeindex");
             });
-            res.render("/adminindex", {"params": {"username": req.body.username}});
         });
     });
     app.post("/adminEditAccount", (req, res) => {
@@ -690,10 +891,5 @@ module.exports = (app, knex) => {
             res.render("employeeIndex", {"params": {"username": req.body.username}})
         });
     });
-
-    app.get("/help", (req, res) => {
-        res.render("help")
-    });
-
     };
 };
