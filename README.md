@@ -1,26 +1,15 @@
-Kimberly Notes:
+URL:
+https://mindfulmediasurvey.com/ 
 
-        redirect to sign up if failed is true then show result
+LOGIN INFORMATION:
+Admin:
+Username: admin@provocity.com
+Password: CHANGEME123!
 
-                                        <%# for (let iCount=0; iCount < params.username.length; iCount++ )
-                                        if (params.username[iCount] == document.getElementById("workEmail")) {
-                                            sOutput = "Work email invalid"
-                                            return(document.getElementById("emailError").innerHTML = sOutput)
-                                        }
-                                %>
 
-                                <div class="invalid-feedback" data-sb-feedback="email:required">A work email is required.</div>
-                                <div class="invalid-feedback" name="emailError" id="emailError">Email is not valid.</div>
+Employee:
+Username: employee@provocity.com
+Password: CHANGEME456!
 
-BRADEN Todo:
-Submit Survey Routes
-Employee/Admin Account routes
-Admin Employees route
-
-OTHER Todo:
-Admin Employees page - extra
-Check/Fix Broken Admin/Employee CSS
-
-KIMBERLY Todo:
-- table css
-- probably still need view for single record from table???
+GOOGLE COLAB:
+https://colab.research.google.com/drive/1OVK07PvwLtbUMGY85u58PJYnQ6nV6A8r?usp=sharing

@@ -891,18 +891,5 @@ module.exports = (app, knex) => {
             res.render("employeeIndex", {"params": {"username": req.body.username}})
         });
     });
-    app.get("/help", (req, res) => {
-        res.render("help")
-    });
-
-
-    app.get("/help", (req, res) => {
-        res.render("help")
-    });
-
-
-    app.get("/help", (req, res) => {
-        res.render("help")
-    });
     };
 };
