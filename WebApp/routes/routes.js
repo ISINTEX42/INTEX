@@ -106,20 +106,6 @@ module.exports = (app, knex) => {
             };
         };
     };
-    function encodeASCIIURL(string) {
-        let urlstring = ""
-        for (let i = 0; i < string.length; i++) {
-            urlstring = urlstring + "%" + string.charCodeAt(i);
-        };
-        return urlstring;
-    };
-    function decodeASCIIURL(urlstring) {
-        let string = ""
-        urlstring.split("%").forEach((code) => {
-            string = string + String.fromCharCode(code);
-        });
-        return string;
-    };
     {//Public Views
     // Landing
     app.get("/", (req, res) => {
@@ -190,7 +176,7 @@ module.exports = (app, knex) => {
     // Landing
     app.get("/employeeindex", (req, res) => {
         if (verifyEmployee(req.headers.referer) || req.query.skip || req.query.login) {
-            res.render("employeeindex", {"params": {"username": decodeASCIIURL(req.query.username)}});
+            res.render("employeeindex", {"params": {"username": req.query.username}});
         } else {
             res.redirect("/login");
         };
@@ -198,7 +184,7 @@ module.exports = (app, knex) => {
     // Tableau
     app.get("/employeetableau", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employeetableau", {"params": {"username": decodeASCIIURL(req.query.username)}});
+            res.render("employeetableau", {"params": {"username": req.query.username}});
         } else {
             res.redirect("/login");
         };
@@ -206,7 +192,7 @@ module.exports = (app, knex) => {
     // Take a Survey
     app.get("/employeesurvey", (req, res) => {
         if (verifyEmployee(req.headers.referer)) {
-            res.render("employeesurvey", {"params": {"username": decodeASCIIURL(req.query.username)}});
+            res.render("employeesurvey", {"params": {"username": req.query.username}});
         } else {
             res.redirect("/login");
         };
@@ -237,8 +223,17 @@ module.exports = (app, knex) => {
     });
     // Edit Account Info
     app.get("/employeeaccount", (req, res) => {
-        if (verifyEmployee(req.headers.referer)) {
-            res.render("employeeaccount", {"params": {"username": decodeASCIIURL(req.query.username)}});
+        if (verifyAdmin(req.headers.referer)) {
+            knex("employees").where({
+                "username": req.query.username
+            }).then(employee => {
+                res.render("adminaccount", {"params": 
+                {"username": req.query.username, 
+                "city_id": employee.city_id,
+                "first_name": employee.first_name,
+                "last_name": employee.last_name
+            }});
+            });
         } else {
             res.redirect("/login");
         };
@@ -254,7 +249,7 @@ module.exports = (app, knex) => {
     // Landing
     app.get("/adminindex", (req, res) => {
         if (verifyAdmin(req.headers.referer) || req.query.skip || req.query.login) {
-            res.render("adminindex", {"params": {"username": decodeASCIIURL(req.query.username)}});
+            res.render("adminindex", {"params": {"username": req.query.username}});
         } else {
             res.redirect("/login");
         };
@@ -262,7 +257,7 @@ module.exports = (app, knex) => {
     // Tableau
     app.get("/admintableau", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("admintableau", {"params": {"username": decodeASCIIURL(req.query.username)}});
+            res.render("admintableau", {"params": {"username": req.query.username}});
         } else {
             res.redirect("/login");
         };
@@ -270,7 +265,7 @@ module.exports = (app, knex) => {
     // Take a Survey
     app.get("/adminsurvey", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("adminsurvey", {"params": {"username": decodeASCIIURL(req.query.username)}});
+            res.render("adminsurvey", {"params": {"username": req.query.username}});
         } else {
             res.redirect("/login");
         };
@@ -293,7 +288,7 @@ module.exports = (app, knex) => {
                         rows.push(survey_vals);
                     });
                 };
-                res.render("admindata?username=" + encodeURIComponent(req.query.username), {"params": {"columns": columns, "rows": rows}});
+                res.render("admindata", {"params": {"columns": columns, "rows": rows, "username": req.query.username}});
             });
         } else {
             res.redirect("/login");
@@ -302,7 +297,7 @@ module.exports = (app, knex) => {
     // Elevate employee accounts
     app.get("/adminemployees", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("adminemployees", {"params": {"username": decodeASCIIURL(req.query.username)}});
+            res.send("Employee Management not yet Available");
         } else {
             res.redirect("/login");
         };
@@ -310,7 +305,16 @@ module.exports = (app, knex) => {
     // Edit Account Info
     app.get("/adminaccount", (req, res) => {
         if (verifyAdmin(req.headers.referer)) {
-            res.render("adminaccount", {"params": {"username": decodeASCIIURL(req.query.username)}});
+            knex("employees").where({
+                "username": req.query.username
+            }).then(employee => {
+                res.render("adminaccount", {"params": 
+                {"username": req.query.username, 
+                "city_id": employee.city_id,
+                "first_name": employee.first_name,
+                "last_name": employee.last_name
+            }});
+            });
         } else {
             res.redirect("/login");
         };
@@ -322,7 +326,7 @@ module.exports = (app, knex) => {
         res.send("Terms and conditions page not implemented for Provo City Survey Pages");
     });
     };
-    {//CRUD Actions
+    {//DB Post Actions
     app.post("/submitSignUp", (req, res) => {
         knex.schema.createTableIfNotExists("employees", table => {
             table.string("username", 60).primary().notNullable();
@@ -414,21 +418,273 @@ module.exports = (app, knex) => {
         });
     });
     app.post("/submitSurvey", (req, res) => {
-
+        knex.insert(
+            {
+                survey_timestamp: knex.fn.now(),
+                age: Math.round(req.body.age),
+                gender: req.body.gender
+            },
+            ['surveyee_id']
+        ).into("surveyees").then(id => {
+            let time;
+            switch (req.body.time) {
+                case "Less than an Hour":
+                    time = "<1";
+                    break;
+                case "Between 1 and 2 hours":
+                    time = "1-2";
+                    break;
+                case "Between 2 and 3 hours":
+                    time = "2-3";
+                    break;
+                case "Between 3 and 4 hours":
+                    time = "3-4";
+                    break;
+                case "Between 4 and 5 hours":
+                    time = "4-5";
+                    break;
+                default:
+                    time = "5<";
+            };
+            knex.insert(
+                {
+                    surveyee_id: id,
+                    relationship_status: req.body.relationshipStat,
+                    occupation_status: req.body.occupation,
+                    is_media_user: req.body.socialMedia === "true",
+                    media_usage: time,
+                    purpose_frequency: req.body.purpose,
+                    distration_frequency: req.body.distractBusy,
+                    restless_amount: req.body.restless,
+                    distraction_amount: req.body.distracted,
+                    worried_amount: req.body.worries,
+                    concentration_amount: req.body.concentrate,
+                    comparison_frequency: req.body.compareSuccess,
+                    comparison_amount: req.body.compareFeel,
+                    validation_frequency: req.body.validation,
+                    depression_frequency: req.body.depressed,
+                    fluctuation_frequency: req.body.interest,
+                    sleep_frequency: req.body.sleep,
+                    survey_city: req.body.surveyCity
+                }
+            ).into("surveyee_info");
+            req.body.affiliation.forEach((affiliation, index) => {
+                knex.insert(
+                    {
+                        surveyee_id: id,
+                        affiliation_num: index,
+                        affiliation: affiliation
+                    }
+                ).into("surveyee_affiliations");
+            });
+            req.body.platforms.forEach((platform, index) => {
+                knex.insert(
+                    {
+                        surveyee_id: id,
+                        platform_num: index,
+                        platform: platform
+                    }
+                ).into("surveyee_platforms");
+            });
+            req.body.platforms.forEach((platform, plat_index) => {
+                req.body.affiliation.forEach((affiliation, aff_index) => {
+                    knex.insert(
+                        {
+                            surveyee_id: id,
+                            affiliation_num: aff_index,
+                            platform_num: plat_index
+                        }
+                    ).into("survey_responses");
+                });
+            });
+            res.render("/index");
+        });
     });
-    app.post("/editAccount", (req, res) => {
-
+    app.post("/adminSubmitSurvey", (req, res) => {
+        knex.insert(
+            {
+                survey_timestamp: knex.fn.now(),
+                age: Math.round(req.body.age),
+                gender: req.body.gender
+            },
+            ['surveyee_id']
+        ).into("surveyees").then(id => {
+            let time;
+            switch (req.body.time) {
+                case "Less than an Hour":
+                    time = "<1";
+                    break;
+                case "Between 1 and 2 hours":
+                    time = "1-2";
+                    break;
+                case "Between 2 and 3 hours":
+                    time = "2-3";
+                    break;
+                case "Between 3 and 4 hours":
+                    time = "3-4";
+                    break;
+                case "Between 4 and 5 hours":
+                    time = "4-5";
+                    break;
+                default:
+                    time = "5<";
+            };
+            knex.insert(
+                {
+                    surveyee_id: id,
+                    relationship_status: req.body.relationshipStat,
+                    occupation_status: req.body.occupation,
+                    is_media_user: req.body.socialMedia === "true",
+                    media_usage: time,
+                    purpose_frequency: req.body.purpose,
+                    distration_frequency: req.body.distractBusy,
+                    restless_amount: req.body.restless,
+                    distraction_amount: req.body.distracted,
+                    worried_amount: req.body.worries,
+                    concentration_amount: req.body.concentrate,
+                    comparison_frequency: req.body.compareSuccess,
+                    comparison_amount: req.body.compareFeel,
+                    validation_frequency: req.body.validation,
+                    depression_frequency: req.body.depressed,
+                    fluctuation_frequency: req.body.interest,
+                    sleep_frequency: req.body.sleep,
+                    survey_city: req.body.surveyCity
+                }
+            ).into("surveyee_info");
+            req.body.affiliation.forEach((affiliation, index) => {
+                knex.insert(
+                    {
+                        surveyee_id: id,
+                        affiliation_num: index,
+                        affiliation: affiliation
+                    }
+                ).into("surveyee_affiliations");
+            });
+            req.body.platforms.forEach((platform, index) => {
+                knex.insert(
+                    {
+                        surveyee_id: id,
+                        platform_num: index,
+                        platform: platform
+                    }
+                ).into("surveyee_platforms");
+            });
+            req.body.platforms.forEach((platform, plat_index) => {
+                req.body.affiliation.forEach((affiliation, aff_index) => {
+                    knex.insert(
+                        {
+                            surveyee_id: id,
+                            affiliation_num: aff_index,
+                            platform_num: plat_index
+                        }
+                    ).into("survey_responses");
+                });
+            });
+            res.render("/adminindex", {"params": {"username": req.body.username}});
+        });
+    });
+    app.post("/employeeSubmitSurvey", (req, res) => {
+        knex.insert(
+            {
+                survey_timestamp: knex.fn.now(),
+                age: Math.round(req.body.age),
+                gender: req.body.gender
+            },
+            ['surveyee_id']
+        ).into("surveyees").then(id => {
+            let time;
+            switch (req.body.time) {
+                case "Less than an Hour":
+                    time = "<1";
+                    break;
+                case "Between 1 and 2 hours":
+                    time = "1-2";
+                    break;
+                case "Between 2 and 3 hours":
+                    time = "2-3";
+                    break;
+                case "Between 3 and 4 hours":
+                    time = "3-4";
+                    break;
+                case "Between 4 and 5 hours":
+                    time = "4-5";
+                    break;
+                default:
+                    time = "5<";
+            };
+            knex.insert(
+                {
+                    surveyee_id: id,
+                    relationship_status: req.body.relationshipStat,
+                    occupation_status: req.body.occupation,
+                    is_media_user: req.body.socialMedia === "true",
+                    media_usage: time,
+                    purpose_frequency: req.body.purpose,
+                    distration_frequency: req.body.distractBusy,
+                    restless_amount: req.body.restless,
+                    distraction_amount: req.body.distracted,
+                    worried_amount: req.body.worries,
+                    concentration_amount: req.body.concentrate,
+                    comparison_frequency: req.body.compareSuccess,
+                    comparison_amount: req.body.compareFeel,
+                    validation_frequency: req.body.validation,
+                    depression_frequency: req.body.depressed,
+                    fluctuation_frequency: req.body.interest,
+                    sleep_frequency: req.body.sleep,
+                    survey_city: req.body.surveyCity
+                }
+            ).into("surveyee_info");
+            req.body.affiliation.forEach((affiliation, index) => {
+                knex.insert(
+                    {
+                        surveyee_id: id,
+                        affiliation_num: index,
+                        affiliation: affiliation
+                    }
+                ).into("surveyee_affiliations");
+            });
+            req.body.platforms.forEach((platform, index) => {
+                knex.insert(
+                    {
+                        surveyee_id: id,
+                        platform_num: index,
+                        platform: platform
+                    }
+                ).into("surveyee_platforms");
+            });
+            req.body.platforms.forEach((platform, plat_index) => {
+                req.body.affiliation.forEach((affiliation, aff_index) => {
+                    knex.insert(
+                        {
+                            surveyee_id: id,
+                            affiliation_num: aff_index,
+                            platform_num: plat_index
+                        }
+                    ).into("survey_responses");
+                });
+            });
+            res.render("/adminindex", {"params": {"username": req.body.username}});
+        });
+    });
+    app.post("/adminEditAccount", (req, res) => {
+        knex("employees").where({
+            "username": req.body.username
+        }).update({
+            "first_name": req.body.first_name,
+            "last_name": req.body.last_name
+        }).then(employee => {
+            res.render("adminIndex", {"params": {"username": req.body.username}})
+        });
+    });
+    app.post("/employeeEditAccount", (req, res) => {
+        knex("employees").where({
+            "username": req.body.username
+        }).update({
+            "first_name": req.body.first_name,
+            "last_name": req.body.last_name
+        }).then(employee => {
+            res.render("employeeIndex", {"params": {"username": req.body.username}})
+        });
     });
     };
-    {//API Actions
-    };
-    app.get("/testAdmin", (req, res) => {
-        res.redirect("/adminindex?login=" + true);
-    });
-    app.get("/testEmployee", (req, res) => {
-        res.redirect("/employeeindex?login=" + true);
-    });
-    app.get("/test", (req, res) => {
-        res.render("adminaccountdraft", {params: {first_name: "Kimberly", last_name : "Hunter", city_id: 54321, username: "workPlease@provocity.com"}});
-    })
 };

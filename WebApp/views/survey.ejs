@@ -57,7 +57,7 @@
                     <h2 class="section-heading text-uppercase">Please Take the Survey</h2>
                     <h3 class="section-subheading text-muted">Social Media Usage and Mental Health</h3>
                 </div>
-                <form id="contactForm" >
+                <form id="contactForm" action="/submitSurvey">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -142,11 +142,11 @@
                                         </div>
                                     <h1 class="questions">6. Do you use social media?</h1><BR>
                                         <div class="checkbox-group">
-                                            <input type="radio" id="rbYes" name="socialMedia" value="Yes">
+                                            <input type="radio" id="rbYes" name="socialMedia" value="true">
                                             <label for="rbYes">Yes</label>
                                         </div>
                                         <div class="checkbox-group">
-                                            <input type="radio" id="rbNo" name="socialMedia" value="No">
+                                            <input type="radio" id="rbNo" name="socialMedia" value="false">
                                             <label for="rbNo">No</label><br><br><br>
                                         </div>
                                     <h1 class="questions">7. What social media platforms do you commonly use? (Check all that apply)</h1><BR>
@@ -464,7 +464,8 @@
                                             <input type="radio" id="rbSleep5" name="sleep" value="5">
                                             <label for="rbSleep5">5</label><br><br><br>
                                         </div>
-                                        <input type="hidden" id="surveyCity" name="surveyCity" value="Provo">
+                                    <h1 class="questions">21. What city do you live in?</h1><br>
+                                        <input type="text" id="surveyCity" name="surveyCity" value="Provo">
                                         <div class="button-container">
                                             <button class="survey-button">Submit</button>
                                         </div>
