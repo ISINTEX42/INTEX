@@ -421,10 +421,11 @@ module.exports = (app, knex) => {
         });
     });
     app.post("/submitSurvey", (req, res) => {
+        let age = Math.round(req.body.age);
         knex.insert(
             {
                 survey_timestamp: knex.fn.now(),
-                age: Math.round(req.body.age),
+                age: age,
                 gender: req.body.gender
             },
             ['surveyee_id']
