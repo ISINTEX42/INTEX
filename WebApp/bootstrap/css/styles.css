@@ -11088,14 +11088,14 @@ header.minitable {
   background-position: center center;
   background-size: cover;
 }
-header.minitable .mini-subheading {
+header.minitable .minitable-subheading {
   font-size: 1.5rem;
   font-style: italic;
   line-height: 1.5rem;
   margin-bottom: 25px;
   font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-header.minitable .mini-heading {
+header.minitable .minitable-heading {
   font-size: 3.25rem;
   font-weight: 700;
   line-height: 3.25rem;
@@ -11108,20 +11108,20 @@ header.minitable .mini-heading {
     padding-top: 5rem;
     padding-bottom: 1.5rem;
   }
-  header.minitable .mini-subheading {
+  header.minitable .minitable-subheading {
     font-size: 2.25rem;
     font-style: italic;
     line-height: 2.25rem;
     margin-bottom: 2rem;
   }
-  header.minitable .mini-heading {
+  header.minitable .minitable-heading {
     font-size: 4.5rem;
     font-weight: 700;
     line-height: 4.5rem;
     margin-bottom: 4rem;
   }
 
-header.minitable .sticky {
+header.minitable .minitable-sticky {
  position: fixed;
  top: 0;
  width: 100%
