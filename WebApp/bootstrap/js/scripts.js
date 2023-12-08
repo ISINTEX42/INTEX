@@ -50,7 +50,6 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-
     function validateForm() {
         var errorMessage2 = document.getElementById('errorMessage2');
         var errorMessage3 = document.getElementById('errorMessage3');
@@ -79,4 +78,4 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 
-});
+}); 
