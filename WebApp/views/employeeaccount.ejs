@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Mindful Media Survey - Dashboard</title>
+        <title>Mindful Media Survey - Account</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/img/favicon_io/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -30,7 +30,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
                 <!-- Logo Homepage Link -->
-                <a href="/" class="navbar-brand" ><img src="../assets/img/logoAllWhite.png" alt="..." /><img src="../assets/img/MindfulMedia.png" alt="..." /></a>
+                <a href="/employeeindex?username=<%= params.username %>" class="navbar-brand" ><img src="../assets/img/logoAllWhite.png" alt="..." /><img src="../assets/img/MindfulMedia.png" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -38,17 +38,17 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <!-- Account Link -->
-                        <li class="nav-item"><a class="nav-admin" href="/adminaccount">My Account</a></li>
+                        <li class="nav-item"><a class="nav-admin" href="/employeeaccount?username=<%= params.username %>">My Account</a></li>
                         <!-- Database-->
-                        <li class="nav-item"><a class="nav-admin" href="/admindata">Survey Data</a></li>     
+                        <li class="nav-item"><a class="nav-admin" href="/employeedata?username=<%= params.username %>">Survey Data</a></li>     
                         <!-- Manage Employees - Create Admin - Elevate Employee Link -->
-                        <li class="nav-item"><a class="nav-admin" href="/adminemployees">Manage Employees</a></li>
+                        <li class="nav-item"><a class="nav-admin" href="/employeeemployees?username=<%= params.username %>">Manage Employees</a></li>
                         <!-- Google Website Analytics-->
                         <li class="nav-item"><a class="nav-admin"  href="http://www.google.com/analytics" target="_blank">Website Analytics</a></li>         
                         <!-- Dashboard Link -->
-                        <li class="nav-item"><a class="nav-admin" href="/admintableau">Interactive Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-admin" href="/employeetableau?username=<%= params.username %>">Interactive Dashboard</a></li>
                         <!-- Survey Button -->
-                        <li class="nav-item"><a class="nav-admin" href="/adminsurvey">Take Survey</a></li>
+                        <li class="nav-item"><a class="nav-admin" href="/employeesurvey?username=<%= params.username %>">Take Survey</a></li>
                     </ul>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">My Account</h2>
                 </div>
-                <form class="form-subscribe" id="contactForm" action="/editAccount" method="post">
+                <form class="form-subscribe" id="contactForm" action="/employeeEditAccount?username=<%= params.username %>" method="post">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
                             <!-- firstName Editable-->
@@ -100,11 +100,14 @@
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Copyright &copy; Mindful Media Survey 2023</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <!-- Logout Link-->               
+                        <a class="link-dark text-decoration-none" href="/index" >Logout</a>
+                    </div>
                     <div class="col-lg-4 my-3 my-lg-0"></div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="/privacy">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="/terms">Terms of Use</a>
+                        <a class="link-dark text-decoration-none me-3" href="/employeeprivacy">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="/employeeterms">Terms of Use</a>
                     </div>
                 </div>
             </div>
