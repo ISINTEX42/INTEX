@@ -22,4 +22,6 @@ https://lucid.app/lucidchart/0bd9514b-fc6a-41e9-b5b4-dab5e617d947/edit?viewport_
 
 Normalization Excel is in the Deliverables folder
 
-Video walkthrough is in the Deliverables folder
+Video walkthrough is in the Deliverables folder in 2 separate parts:
+  p1 walks through the version that is online
+  p2 walks through the version that has a working database
